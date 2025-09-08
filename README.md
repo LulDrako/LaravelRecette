@@ -4,7 +4,6 @@
 🎯 Premier projet Laravel réalisé dans le cadre de mon apprentissage personnel du framework.  
 Ce projet me permet de découvrir les bases de Laravel à travers un cas concret : la gestion de recettes culinaires.
 
----
 
 ## ⚙️ Stack technique
 
@@ -14,7 +13,6 @@ Ce projet me permet de découvrir les bases de Laravel à travers un cas concret
 - MySQL (ou SQLite)
 - PHP 8+
 
----
 
 ## ✨ Fonctionnalités
 
@@ -24,7 +22,6 @@ Ce projet me permet de découvrir les bases de Laravel à travers un cas concret
 - Authentification (voir les recettes d’un utilisateur spécifique)
 - Affichage des recettes de tous les utilisateurs
 
----
 
 ## 🧪 En cours d'apprentissage
 
