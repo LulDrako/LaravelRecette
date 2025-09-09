@@ -19,7 +19,15 @@ class Recette extends Model
         'type',
         'temps_preparation',
         'portions',
-        'user_id'
+        'user_id',
+        'tags'
+    ];
+
+    /**
+     * Les types de données pour certains champs
+     */
+    protected $casts = [
+        'tags' => 'array'
     ];
 
     /**

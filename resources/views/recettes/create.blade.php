@@ -1,175 +1,358 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                ➕ {{ __('Créer une nouvelle recette') }}
-            </h2>
-            <a href="{{ route('recettes.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                ← Retour à la liste
-            </a>
-        </div>
-    </x-slot>
+    <div style="min-height: 100vh; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 40px 20px;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            
+            <!-- En-tête -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 32px; font-weight: 700; color: #1f2937; margin-bottom: 8px;">
+                    Créer une nouvelle recette
+                </h1>
+                <p style="color: #6b7280; font-size: 16px;">
+                    Partagez votre recette avec la communauté
+                </p>
+            </div>
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+            <!-- Formulaire -->
+            <div style="background: white; border-radius: 20px; padding: 40px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
+                <form action="{{ route('recettes.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     
-                    <!-- Formulaire de création -->
-                    <form action="{{ route('recettes.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-                        @csrf
-                        
-                        <!-- Titre -->
+                    <!-- Messages d'erreur globaux -->
+                    @if ($errors->any())
+                        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: 16px; margin-bottom: 24px;">
+                            <ul style="margin: 0; padding-left: 20px; color: #dc2626;">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <!-- Titre -->
+                    <div style="margin-bottom: 24px;">
+                        <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 15px;">
+                            Titre de la recette *
+                        </label>
+                        <input type="text" 
+                               name="titre" 
+                               value="{{ old('titre') }}"
+                               placeholder="Ex: Spaghetti à la carbonara"
+                               style="width: 100%; 
+                                      padding: 16px; 
+                                      border: 2px solid #e5e7eb; 
+                                      border-radius: 12px; 
+                                      font-size: 16px;
+                                      transition: all 0.3s ease;"
+                               onfocus="this.style.borderColor='#1f2937'"
+                               onblur="this.style.borderColor='#e5e7eb'"
+                               required>
+                    </div>
+
+                    <!-- Description -->
+                    <div style="margin-bottom: 24px;">
+                        <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 15px;">
+                            Description *
+                        </label>
+                        <textarea name="description" 
+                                  rows="3"
+                                  placeholder="Décrivez votre recette en quelques mots..."
+                                  style="width: 100%; 
+                                         padding: 16px; 
+                                         border: 2px solid #e5e7eb; 
+                                         border-radius: 12px; 
+                                         font-size: 16px;
+                                         resize: vertical;
+                                         transition: all 0.3s ease;"
+                                  onfocus="this.style.borderColor='#1f2937'"
+                                  onblur="this.style.borderColor='#e5e7eb'"
+                                  required>{{ old('description') }}</textarea>
+                    </div>
+
+                    <!-- Informations rapides -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 24px;">
                         <div>
-                            <label for="titre" class="block text-sm font-medium text-gray-700 mb-2">
-                                📝 Titre de la recette *
+                            <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 15px;">
+                                Type de plat
+                            </label>
+                            <select name="type"
+                                    style="width: 100%; 
+                                           padding: 16px; 
+                                           border: 2px solid #e5e7eb; 
+                                           border-radius: 12px; 
+                                           font-size: 16px;
+                                           background: white;
+                                           transition: all 0.3s ease;"
+                                    onfocus="this.style.borderColor='#1f2937'"
+                                    onblur="this.style.borderColor='#e5e7eb'">
+                                <option value="">-- Choisir --</option>
+                                <option value="entree" {{ old('type') == 'entree' ? 'selected' : '' }}>Entrée</option>
+                                <option value="plat" {{ old('type') == 'plat' ? 'selected' : '' }}>Plat principal</option>
+                                <option value="dessert" {{ old('type') == 'dessert' ? 'selected' : '' }}>Dessert</option>
+                                <option value="apero" {{ old('type') == 'apero' ? 'selected' : '' }}>Apéritif</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 15px;">
+                                Temps (minutes)
+                            </label>
+                            <input type="number" 
+                                   name="temps_preparation" 
+                                   value="{{ old('temps_preparation') }}"
+                                   min="1"
+                                   placeholder="30"
+                                   style="width: 100%; 
+                                          padding: 16px; 
+                                          border: 2px solid #e5e7eb; 
+                                          border-radius: 12px; 
+                                          font-size: 16px;
+                                          transition: all 0.3s ease;"
+                                   onfocus="this.style.borderColor='#1f2937'"
+                                   onblur="this.style.borderColor='#e5e7eb'">
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 15px;">
+                                Portions
+                            </label>
+                            <input type="number" 
+                                   name="portions" 
+                                   value="{{ old('portions', 4) }}"
+                                   min="1"
+                                   placeholder="4"
+                                   style="width: 100%; 
+                                          padding: 16px; 
+                                          border: 2px solid #e5e7eb; 
+                                          border-radius: 12px; 
+                                          font-size: 16px;
+                                          transition: all 0.3s ease;"
+                                   onfocus="this.style.borderColor='#1f2937'"
+                                   onblur="this.style.borderColor='#e5e7eb'">
+                        </div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div style="margin-bottom: 24px;">
+                        <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 12px; font-size: 15px;">
+                            Tags alimentaires
+                        </label>
+                        
+                        <!-- Tags principaux -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px;">
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 12px; border: 2px solid #e5e7eb; border-radius: 12px; cursor: pointer; transition: all 0.3s ease;"
+                                   onmouseover="this.style.borderColor='#d1d5db'"
+                                   onmouseout="this.style.borderColor='#e5e7eb'">
+                                <input type="checkbox" name="tags[]" value="vegetarien" style="width: 18px; height: 18px;">
+                                <span>Végétarien</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 12px; border: 2px solid #e5e7eb; border-radius: 12px; cursor: pointer; transition: all 0.3s ease;"
+                                   onmouseover="this.style.borderColor='#d1d5db'"
+                                   onmouseout="this.style.borderColor='#e5e7eb'">
+                                <input type="checkbox" name="tags[]" value="vegan" style="width: 18px; height: 18px;">
+                                <span>Vegan</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 12px; border: 2px solid #e5e7eb; border-radius: 12px; cursor: pointer; transition: all 0.3s ease;"
+                                   onmouseover="this.style.borderColor='#d1d5db'"
+                                   onmouseout="this.style.borderColor='#e5e7eb'">
+                                <input type="checkbox" name="tags[]" value="sans-gluten" style="width: 18px; height: 18px;">
+                                <span>Sans gluten</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 12px; border: 2px solid #e5e7eb; border-radius: 12px; cursor: pointer; transition: all 0.3s ease;"
+                                   onmouseover="this.style.borderColor='#d1d5db'"
+                                   onmouseout="this.style.borderColor='#e5e7eb'">
+                                <input type="checkbox" name="tags[]" value="sans-lactose" style="width: 18px; height: 18px;">
+                                <span>Sans lactose</span>
+                            </label>
+                        </div>
+                        
+                        <!-- Tags personnalisés -->
+                        <div>
+                            <label style="display: block; font-weight: 500; color: #6b7280; margin-bottom: 8px; font-size: 14px;">
+                                Ajouter des tags personnalisés (optionnel)
                             </label>
                             <input type="text" 
-                                   id="titre" 
-                                   name="titre" 
-                                   value="{{ old('titre') }}"
-                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                   placeholder="Ex: Spaghetti Bolognaise"
-                                   required>
-                            @error('titre')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
+                                   name="tags_custom"
+                                   placeholder="Ex: rapide, facile, économique (séparez par des virgules)"
+                                   style="width: 100%; 
+                                          padding: 12px; 
+                                          border: 2px solid #e5e7eb; 
+                                          border-radius: 12px; 
+                                          font-size: 14px;
+                                          transition: all 0.3s ease;"
+                                   onfocus="this.style.borderColor='#1f2937'"
+                                   onblur="this.style.borderColor='#e5e7eb'">
+                            <p style="color: #6b7280; font-size: 12px; margin-top: 6px;">
+                                Tapez vos tags séparés par des virgules (ex: épicé, familial, festif)
+                            </p>
                         </div>
+                    </div>
 
-                        <!-- Description -->
-                        <div>
-                            <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
-                                📖 Description *
-                            </label>
-                            <textarea id="description" 
-                                      name="description" 
-                                      rows="3"
-                                      class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                      placeholder="Décrivez votre recette en quelques mots..."
-                                      required>{{ old('description') }}</textarea>
-                            @error('description')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Type et temps/portions sur la même ligne -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <!-- Type -->
-                            <div>
-                                <label for="type" class="block text-sm font-medium text-gray-700 mb-2">
-                                    🍽️ Type de plat
-                                </label>
-                                <select id="type" 
-                                        name="type"
-                                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                    <option value="">-- Choisir --</option>
-                                    <option value="entree" {{ old('type') == 'entree' ? 'selected' : '' }}>🥗 Entrée</option>
-                                    <option value="plat" {{ old('type') == 'plat' ? 'selected' : '' }}>🍝 Plat principal</option>
-                                    <option value="dessert" {{ old('type') == 'dessert' ? 'selected' : '' }}>🍰 Dessert</option>
-                                    <option value="apero" {{ old('type') == 'apero' ? 'selected' : '' }}>🥂 Apéritif</option>
-                                </select>
-                                @error('type')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <!-- Temps de préparation -->
-                            <div>
-                                <label for="temps_preparation" class="block text-sm font-medium text-gray-700 mb-2">
-                                    ⏱️ Temps (minutes)
-                                </label>
-                                <input type="number" 
-                                       id="temps_preparation" 
-                                       name="temps_preparation" 
-                                       value="{{ old('temps_preparation') }}"
-                                       min="1"
-                                       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                       placeholder="30">
-                                @error('temps_preparation')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <!-- Portions -->
-                            <div>
-                                <label for="portions" class="block text-sm font-medium text-gray-700 mb-2">
-                                    👥 Portions
-                                </label>
-                                <input type="number" 
-                                       id="portions" 
-                                       name="portions" 
-                                       value="{{ old('portions', 4) }}"
-                                       min="1"
-                                       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                       placeholder="4">
-                                @error('portions')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- Ingrédients -->
-                        <div>
-                            <label for="ingredients" class="block text-sm font-medium text-gray-700 mb-2">
-                                🛒 Ingrédients *
-                            </label>
-                            <textarea id="ingredients" 
-                                      name="ingredients" 
-                                      rows="6"
-                                      class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                      placeholder="Listez vos ingrédients, un par ligne:&#10;- 500g de pâtes&#10;- 400g de viande hachée&#10;- 1 oignon&#10;- 2 tomates..."
-                                      required>{{ old('ingredients') }}</textarea>
-                            @error('ingredients')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Instructions -->
-                        <div>
-                            <label for="instructions" class="block text-sm font-medium text-gray-700 mb-2">
-                                📋 Instructions de préparation *
-                            </label>
-                            <textarea id="instructions" 
-                                      name="instructions" 
-                                      rows="8"
-                                      class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                      placeholder="Décrivez étape par étape comment préparer votre recette:&#10;1. Faire bouillir l'eau...&#10;2. Cuire les pâtes...&#10;3. Préparer la sauce..."
-                                      required>{{ old('instructions') }}</textarea>
-                            @error('instructions')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Image -->
-                        <div>
-                            <label for="image" class="block text-sm font-medium text-gray-700 mb-2">
-                                📷 Photo de la recette (optionnel)
-                            </label>
-                            <input type="file" 
-                                   id="image" 
-                                   name="image" 
-                                   accept="image/*"
-                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <p class="text-gray-500 text-sm mt-1">Formats acceptés: JPG, PNG, GIF (max 2MB)</p>
-                            @error('image')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Boutons -->
-                        <div class="flex justify-between items-center pt-6 border-t">
-                            <a href="{{ route('recettes.index') }}" 
-                               class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded">
-                                ❌ Annuler
-                            </a>
-                            <button type="submit" 
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
-                                💾 Créer la recette
+                    <!-- Ingrédients -->
+                    <div style="margin-bottom: 24px;">
+                        <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 15px;">
+                            Ingrédients *
+                        </label>
+                        <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+                            <input type="text" 
+                                   id="ingredient-input"
+                                   placeholder="Ex: 100g de tomate, 2 oignons..."
+                                   style="flex: 1; 
+                                          padding: 16px; 
+                                          border: 2px solid #e5e7eb; 
+                                          border-radius: 12px; 
+                                          font-size: 16px;
+                                          transition: all 0.3s ease;"
+                                   onfocus="this.style.borderColor='#1f2937'"
+                                   onblur="this.style.borderColor='#e5e7eb'">
+                            <button type="button" 
+                                    onclick="ajouterIngredient()"
+                                    style="background: #1f2937; 
+                                           color: white; 
+                                           border: none; 
+                                           padding: 16px 24px; 
+                                           border-radius: 12px; 
+                                           font-weight: 600;
+                                           cursor: pointer;
+                                           transition: all 0.3s ease;"
+                                    onmouseover="this.style.background='#374151'"
+                                    onmouseout="this.style.background='#1f2937'">
+                                Ajouter
                             </button>
                         </div>
-                    </form>
-                </div>
+                        <div id="liste-ingredients" style="min-height: 60px; border: 2px dashed #d1d5db; border-radius: 12px; padding: 20px; color: #6b7280; text-align: center;">
+                            Aucun ingrédient ajouté
+                        </div>
+                        <textarea id="ingredients" name="ingredients" style="display: none;" required>{{ old('ingredients') }}</textarea>
+                    </div>
+
+                    <!-- Instructions -->
+                    <div style="margin-bottom: 24px;">
+                        <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 15px;">
+                            Instructions *
+                        </label>
+                        <textarea name="instructions" 
+                                  rows="6"
+                                  placeholder="1. Faire bouillir l'eau...&#10;2. Cuire les pâtes...&#10;3. Préparer la sauce..."
+                                  style="width: 100%; 
+                                         padding: 16px; 
+                                         border: 2px solid #e5e7eb; 
+                                         border-radius: 12px; 
+                                         font-size: 16px;
+                                         resize: vertical;
+                                         transition: all 0.3s ease;"
+                                  onfocus="this.style.borderColor='#1f2937'"
+                                  onblur="this.style.borderColor='#e5e7eb'"
+                                  required>{{ old('instructions') }}</textarea>
+                    </div>
+
+                    <!-- Image -->
+                    <div style="margin-bottom: 32px;">
+                        <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 15px;">
+                            Photo (optionnel)
+                        </label>
+                        <input type="file" 
+                               name="image" 
+                               accept=".jpg,.jpeg,.png,.gif,.webp"
+                               style="width: 100%; 
+                                      padding: 16px; 
+                                      border: 2px solid #e5e7eb; 
+                                      border-radius: 12px; 
+                                      font-size: 16px;
+                                      transition: all 0.3s ease;"
+                               onfocus="this.style.borderColor='#1f2937'"
+                               onblur="this.style.borderColor='#e5e7eb'">
+                        <p style="color: #6b7280; font-size: 14px; margin-top: 8px;">
+                            Formats acceptés: JPG, PNG, GIF, WEBP (max 2MB)
+                        </p>
+                    </div>
+
+                    <!-- Boutons -->
+                    <div style="display: flex; gap: 16px; justify-content: center;">
+                        <a href="{{ route('recettes.index') }}" 
+                           style="background: #6b7280; 
+                                  color: white; 
+                                  padding: 16px 32px; 
+                                  border-radius: 12px; 
+                                  text-decoration: none; 
+                                  font-weight: 600;
+                                  transition: all 0.3s ease;"
+                           onmouseover="this.style.background='#4b5563'"
+                           onmouseout="this.style.background='#6b7280'">
+                            Annuler
+                        </a>
+                        <button type="submit" 
+                                style="background: #1f2937; 
+                                       color: white; 
+                                       border: none; 
+                                       padding: 16px 32px; 
+                                       border-radius: 12px; 
+                                       font-weight: 600;
+                                       cursor: pointer;
+                                       transition: all 0.3s ease;"
+                                onmouseover="this.style.background='#374151'"
+                                onmouseout="this.style.background='#1f2937'">
+                            Créer la recette
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
+    <script>
+        let ingredients = [];
+
+        function ajouterIngredient() {
+            const input = document.getElementById('ingredient-input');
+            const texte = input.value.trim();
+            
+            if (texte === '') {
+                alert('Veuillez saisir un ingrédient');
+                return;
+            }
+            
+            ingredients.push(texte);
+            input.value = '';
+            mettreAJourAffichage();
+        }
+
+        function supprimerIngredient(index) {
+            ingredients.splice(index, 1);
+            mettreAJourAffichage();
+        }
+
+        function mettreAJourAffichage() {
+            const liste = document.getElementById('liste-ingredients');
+            const champCache = document.getElementById('ingredients');
+            
+            if (ingredients.length === 0) {
+                liste.innerHTML = 'Aucun ingrédient ajouté';
+                liste.style.color = '#6b7280';
+                liste.style.textAlign = 'center';
+            } else {
+                liste.style.color = '#374151';
+                liste.style.textAlign = 'left';
+                liste.innerHTML = ingredients.map((ingredient, index) => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px; margin-bottom: 8px;">
+                        <span>${ingredient}</span>
+                        <button type="button" 
+                                onclick="supprimerIngredient(${index})"
+                                style="background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 12px;"
+                                onmouseover="this.style.background='#dc2626'"
+                                onmouseout="this.style.background='#ef4444'">
+                            Supprimer
+                        </button>
+                    </div>
+                `).join('');
+            }
+            
+            champCache.value = ingredients.map(ing => `- ${ing}`).join('\n');
+        }
+
+        // Permettre l'ajout avec Entrée
+        document.getElementById('ingredient-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                ajouterIngredient();
+            }
+        });
+    </script>
 </x-app-layout>

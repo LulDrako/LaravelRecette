@@ -40,6 +40,12 @@ class RecetteController extends Controller
      */
     public function store(Request $request)
     {
+        // Messages d'erreur personnalisés
+        $messages = [
+            'image.mimes' => 'Le format du fichier est invalide. Seuls les formats JPG, PNG, GIF et WEBP sont acceptés.',
+            'image.max' => 'La taille de l\'image ne doit pas dépasser 2 Mo.'
+        ];
+        
         // Validation des données du formulaire
         $validated = $request->validate([
             'titre' => 'required|max:255',
@@ -49,11 +55,76 @@ class RecetteController extends Controller
             'type' => 'nullable|string',
             'temps_preparation' => 'nullable|integer|min:1',
             'portions' => 'nullable|integer|min:1',
-            'image' => 'nullable|image|max:2048', // 2MB max
-        ]);
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max, formats spécifiques incluant webp
+            'tags' => 'nullable|array',
+            'tags.*' => 'string|in:sans-gluten,vegetarien,vegan,sans-lactose',
+            'tags_custom' => 'nullable|string|max:255'
+        ], $messages);
+        
+        // Traitement des tags : combiner les tags cochés et les tags personnalisés
+        $allTags = [];
+        
+        // Ajouter les tags cochés
+        if (isset($validated['tags'])) {
+            $allTags = array_merge($allTags, $validated['tags']);
+        }
+        
+        // Ajouter les tags personnalisés
+        if (!empty($validated['tags_custom'])) {
+            $customTags = array_map('trim', explode(',', $validated['tags_custom']));
+            $customTags = array_filter($customTags); // Enlever les éléments vides
+            $customTags = array_map('strtolower', $customTags); // Mettre en minuscules
+            $allTags = array_merge($allTags, $customTags);
+        }
+        
+        // Enlever les doublons et assigner les tags finaux
+        $validated['tags'] = array_unique($allTags);
+        
+        // Supprimer tags_custom car on n'en a plus besoin
+        unset($validated['tags_custom']);
         
         // Ajouter l'ID de l'utilisateur connecté
         $validated['user_id'] = auth()->id();
+        
+        // Normaliser le format des ingrédients (convertir "- quantité nom" en "- quantité de nom")
+        if (isset($validated['ingredients'])) {
+            $lignes = explode("\n", $validated['ingredients']);
+            $ingredientsNormalises = [];
+            
+            foreach ($lignes as $ligne) {
+                $ligne = trim($ligne);
+                if (!empty($ligne) && strpos($ligne, '-') === 0) {
+                    // Enlever le tiret et les espaces
+                    $contenu = trim(substr($ligne, 1));
+                    
+                    // Si ce n'est pas déjà au format "quantité de nom"
+                    if (!preg_match('/\s+de\s+/', $contenu)) {
+                        // Séparer en mots
+                        $mots = explode(' ', $contenu);
+                        if (count($mots) >= 2) {
+                            $quantite = $mots[0];
+                            $nom = implode(' ', array_slice($mots, 1));
+                            
+                            // Si le 2e mot ressemble à une unité, l'inclure dans la quantité
+                            if (count($mots) > 2 && preg_match('/^(g|kg|ml|l|cl|cuillères?|c\.|cs|cc|tasses?|pièces?|tranches?)$/i', $mots[1])) {
+                                $quantite = $mots[0] . ' ' . $mots[1];
+                                $nom = implode(' ', array_slice($mots, 2));
+                            }
+                            
+                            $ingredientsNormalises[] = "- $quantite de $nom";
+                        } else {
+                            $ingredientsNormalises[] = $ligne;
+                        }
+                    } else {
+                        $ingredientsNormalises[] = $ligne;
+                    }
+                } else if (!empty($ligne)) {
+                    $ingredientsNormalises[] = $ligne;
+                }
+            }
+            
+            $validated['ingredients'] = implode("\n", $ingredientsNormalises);
+        }
         
         // Gérer l'upload d'image si présente
         if ($request->hasFile('image')) {
@@ -121,6 +192,46 @@ class RecetteController extends Controller
             'portions' => 'nullable|integer|min:1',
             'image' => 'nullable|image|max:2048',
         ]);
+        
+        // Normaliser le format des ingrédients (convertir "- quantité nom" en "- quantité de nom")
+        if (isset($validated['ingredients'])) {
+            $lignes = explode("\n", $validated['ingredients']);
+            $ingredientsNormalises = [];
+            
+            foreach ($lignes as $ligne) {
+                $ligne = trim($ligne);
+                if (!empty($ligne) && strpos($ligne, '-') === 0) {
+                    // Enlever le tiret et les espaces
+                    $contenu = trim(substr($ligne, 1));
+                    
+                    // Si ce n'est pas déjà au format "quantité de nom"
+                    if (!preg_match('/\s+de\s+/', $contenu)) {
+                        // Séparer en mots
+                        $mots = explode(' ', $contenu);
+                        if (count($mots) >= 2) {
+                            $quantite = $mots[0];
+                            $nom = implode(' ', array_slice($mots, 1));
+                            
+                            // Si le 2e mot ressemble à une unité, l'inclure dans la quantité
+                            if (count($mots) > 2 && preg_match('/^(g|kg|ml|l|cl|cuillères?|c\.|cs|cc|tasses?|pièces?|tranches?)$/i', $mots[1])) {
+                                $quantite = $mots[0] . ' ' . $mots[1];
+                                $nom = implode(' ', array_slice($mots, 2));
+                            }
+                            
+                            $ingredientsNormalises[] = "- $quantite de $nom";
+                        } else {
+                            $ingredientsNormalises[] = $ligne;
+                        }
+                    } else {
+                        $ingredientsNormalises[] = $ligne;
+                    }
+                } else if (!empty($ligne)) {
+                    $ingredientsNormalises[] = $ligne;
+                }
+            }
+            
+            $validated['ingredients'] = implode("\n", $ingredientsNormalises);
+        }
         
         // Gérer nouvelle image si uploadée
         if ($request->hasFile('image')) {
