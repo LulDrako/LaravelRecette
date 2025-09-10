@@ -28,6 +28,104 @@
                     </div>
                 @endif
 
+                <!-- Section de filtrage -->
+                <div class="filters-container">
+                    <form method="GET" action="{{ request()->routeIs('recettes.mes-recettes') ? route('recettes.mes-recettes') : route('recettes.index') }}" class="filters-form">
+                        <div class="filters-grid">
+                            <!-- Recherche textuelle -->
+                            <div class="filter-group">
+                                <label for="search" class="filter-label">Rechercher</label>
+                                <input type="text" 
+                                       id="search" 
+                                       name="search" 
+                                       value="{{ request('search') }}"
+                                       placeholder="Titre, description, ingrédient..."
+                                       class="filter-input">
+                            </div>
+
+                            <!-- Type de plat -->
+                            <div class="filter-group">
+                                <label for="type" class="filter-label">Type de plat</label>
+                                <select id="type" name="type" class="filter-select">
+                                    <option value="">Tous les types</option>
+                                    <option value="entree" {{ request('type') === 'entree' ? 'selected' : '' }}>Entrée</option>
+                                    <option value="plat" {{ request('type') === 'plat' ? 'selected' : '' }}>Plat principal</option>
+                                    <option value="dessert" {{ request('type') === 'dessert' ? 'selected' : '' }}>Dessert</option>
+                                    <option value="apero" {{ request('type') === 'apero' ? 'selected' : '' }}>Apéritif</option>
+                                    <option value="boisson" {{ request('type') === 'boisson' ? 'selected' : '' }}>Boisson</option>
+                                </select>
+                            </div>
+
+                            <!-- Tags alimentaires -->
+                            <div class="filter-group">
+                                <label class="filter-label">Tags alimentaires</label>
+                                <div class="filter-tags">
+                                    <label class="filter-tag">
+                                        <input type="checkbox" name="tags[]" value="vegetarien" 
+                                               {{ in_array('vegetarien', request('tags', [])) ? 'checked' : '' }}>
+                                        <span>Végétarien</span>
+                                    </label>
+                                    <label class="filter-tag">
+                                        <input type="checkbox" name="tags[]" value="vegan" 
+                                               {{ in_array('vegan', request('tags', [])) ? 'checked' : '' }}>
+                                        <span>Vegan</span>
+                                    </label>
+                                    <label class="filter-tag">
+                                        <input type="checkbox" name="tags[]" value="sans-gluten" 
+                                               {{ in_array('sans-gluten', request('tags', [])) ? 'checked' : '' }}>
+                                        <span>Sans gluten</span>
+                                    </label>
+                                    <label class="filter-tag">
+                                        <input type="checkbox" name="tags[]" value="sans-lactose" 
+                                               {{ in_array('sans-lactose', request('tags', [])) ? 'checked' : '' }}>
+                                        <span>Sans lactose</span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Tags personnalisés -->
+                                <div style="margin-top: 12px;">
+                                    <label for="tags_custom" class="filter-label" style="font-size: 13px; color: #6b7280;">Tags personnalisés</label>
+                                    <input type="text" 
+                                           id="tags_custom" 
+                                           name="tags_custom" 
+                                           value="{{ request('tags_custom') }}"
+                                           placeholder="Ex: rapide, facile, économique..."
+                                           class="filter-input"
+                                           style="font-size: 13px;">
+                                </div>
+                            </div>
+
+                            <!-- Temps max -->
+                            <div class="filter-group">
+                                <label for="temps_max" class="filter-label">Temps max (min)</label>
+                                <input type="number" 
+                                       id="temps_max" 
+                                       name="temps_max" 
+                                       value="{{ request('temps_max') }}"
+                                       placeholder="Ex: 30"
+                                       class="filter-input">
+                            </div>
+                        </div>
+
+                        <!-- Boutons d'action -->
+                        <div class="filters-actions">
+                            <button type="submit" class="filter-btn filter-btn-search">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                </svg>
+                                Rechercher
+                            </button>
+                            <a href="{{ request()->routeIs('recettes.mes-recettes') ? route('recettes.mes-recettes') : route('recettes.index') }}" 
+                               class="filter-btn filter-btn-reset">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                                Réinitialiser
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
                 @if($recettes->count() > 0)
                     @if(($pageTitle ?? '') === 'Mes recettes')
                         <div class="index-create-button-container">
@@ -188,11 +286,17 @@
                 @else
                     <div class="index-empty">
                         <div class="index-empty-icon">🍽️</div>
-                        <h3>Aucune recette trouvée</h3>
-                        <p>Commencez par créer votre première recette !</p>
-                        <a href="{{ route('recettes.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mt-4">
-                            ➕ Créer ma première recette
-                        </a>
+                        @if(($pageTitle ?? '') === 'Mes recettes')
+                            <h3>Aucune recette dans votre collection</h3>
+                            <p>Commencez par créer votre première recette !</p>
+                            <a href="{{ route('recettes.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mt-4">
+                                ➕ Créer ma première recette
+                            </a>
+                        @else
+                            <h3>Aucune recette dans le catalogue</h3>
+                            <p>Le catalogue de recettes est actuellement vide.</p>
+                            <p style="margin-top: 8px; font-size: 14px; color: #6b7280;">Essayez de modifier vos filtres de recherche ou revenez plus tard !</p>
+                        @endif
                     </div>
                 @endif
             </div>

@@ -46,6 +46,7 @@
                                 <option value="plat" {{ old('type') == 'plat' ? 'selected' : '' }}>Plat principal</option>
                                 <option value="dessert" {{ old('type') == 'dessert' ? 'selected' : '' }}>Dessert</option>
                                 <option value="apero" {{ old('type') == 'apero' ? 'selected' : '' }}>Apéritif</option>
+                                <option value="boisson" {{ old('type') == 'boisson' ? 'selected' : '' }}>Boisson</option>
                             </select>
                         </div>
                         <div>

@@ -515,3 +515,150 @@
 .show-action-delete:hover {
     background: #dc2626;
 }
+
+/* ========================================
+   STYLES POUR LES FILTRES
+======================================== */
+
+.filters-container {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filters-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 14px;
+}
+
+.filter-input,
+.filter-select {
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.filter-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 13px;
+}
+
+.filter-tag:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.filter-tag input[type="checkbox"] {
+    margin: 0;
+    accent-color: #3b82f6;
+}
+
+.filter-tag input[type="checkbox"]:checked + span {
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+.filters-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.filter-btn-search {
+    background: #3b82f6;
+    color: white;
+}
+
+.filter-btn-search:hover {
+    background: #2563eb;
+}
+
+.filter-btn-reset {
+    background: #6b7280;
+    color: white;
+}
+
+.filter-btn-reset:hover {
+    background: #4b5563;
+}
+
+/* Responsive pour les filtres */
+@media (max-width: 768px) {
+    .filters-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .filter-tags {
+        justify-content: center;
+    }
+    
+    .filters-actions {
+        flex-direction: column;
+    }
+    
+    .filter-btn {
+        justify-content: center;
+    }
+}

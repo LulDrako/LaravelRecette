@@ -13,11 +13,16 @@ class RecetteController extends Controller
      * Display a listing of the resource.
      * FORMATION: Cette méthode affiche la liste de TOUTES les recettes (tous utilisateurs)
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Récupérer toutes les recettes avec leurs propriétaires
-        // with('user') = optimisation pour éviter N+1 queries
-        $recettes = Recette::with('user')->latest()->get();
+        // Commencer la requête avec les relations
+        $query = Recette::with('user');
+        
+        // Appliquer les filtres
+        $this->applyFilters($query, $request);
+        
+        // Récupérer les recettes filtrées
+        $recettes = $query->latest()->get();
         
         // Retourner la vue avec les données et indiquer que c'est TOUTES les recettes
         return view('recettes.index', compact('recettes'))->with('pageTitle', 'Toutes les recettes');
@@ -27,13 +32,16 @@ class RecetteController extends Controller
      * Display user's own recipes.
      * FORMATION: Cette méthode affiche seulement les recettes de l'utilisateur connecté
      */
-    public function mesRecettes()
+    public function mesRecettes(Request $request)
     {
-        // Récupérer uniquement les recettes de l'utilisateur connecté
-        $recettes = Recette::where('user_id', auth()->id())
-                          ->with('user')
-                          ->latest()
-                          ->get();
+        // Commencer la requête avec seulement les recettes de l'utilisateur connecté
+        $query = Recette::where('user_id', auth()->id())->with('user');
+        
+        // Appliquer les filtres
+        $this->applyFilters($query, $request);
+        
+        // Récupérer les recettes filtrées
+        $recettes = $query->latest()->get();
         
         // Utiliser la même vue mais avec seulement nos recettes
         return view('recettes.index', compact('recettes'))->with('pageTitle', 'Mes recettes');
@@ -326,5 +334,59 @@ class RecetteController extends Controller
         // Rediriger vers la liste avec message
         return redirect()->route('recettes.index')
                         ->with('success', 'Recette supprimée avec succès !');
+    }
+
+    /**
+     * Appliquer les filtres de recherche et de filtrage
+     */
+    private function applyFilters($query, Request $request)
+    {
+        // Filtre par recherche dans le titre, description ou ingrédients
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('titre', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%")
+                  ->orWhere('ingredients', 'LIKE', "%{$search}%");
+            });
+        }
+
+        // Filtre par type de plat
+        if ($request->filled('type') && $request->type !== '') {
+            $query->where('type', $request->type);
+        }
+
+        // Filtre par tags alimentaires et personnalisés
+        if ($request->filled('tags')) {
+            $tags = $request->tags;
+            $query->where(function($q) use ($tags) {
+                foreach ($tags as $tag) {
+                    $q->where('tags', 'LIKE', "%{$tag}%");
+                }
+            });
+        }
+
+        // Filtre par tags personnalisés (recherche dans la même colonne tags)
+        if ($request->filled('tags_custom')) {
+            $tagsCustom = explode(',', $request->tags_custom);
+            $query->where(function($q) use ($tagsCustom) {
+                foreach ($tagsCustom as $tag) {
+                    $tag = trim(strtolower($tag)); // Enlever les espaces et mettre en minuscules
+                    if (!empty($tag)) {
+                        $q->where('tags', 'LIKE', "%{$tag}%");
+                    }
+                }
+            });
+        }
+
+        // Filtre par temps de préparation
+        if ($request->filled('temps_max')) {
+            $query->where('temps_preparation', '<=', $request->temps_max);
+        }
+
+        // Filtre par nombre de portions
+        if ($request->filled('portions')) {
+            $query->where('portions', $request->portions);
+        }
     }
 }

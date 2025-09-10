@@ -18,7 +18,7 @@ Ce projet me permet de découvrir les bases de Laravel à travers un cas concret
 
 - Ajouter, modifier, supprimer une recette
 - Upload d'image pour chaque recette
-- Filtrer les recettes par ingrédient ou type de plat
+- Filtrer les recettes par ingrédient ou type de plat ou tags.
 - Authentification (voir les recettes d’un utilisateur spécifique)
 - Affichage des recettes de tous les utilisateurs
 
