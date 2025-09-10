@@ -40,14 +40,14 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Messages de succès -->
+
             @if (session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
                     {{ session('success') }}
                 </div>
             @endif
 
-            <!-- BOUTON NOUVELLE RECETTE - DESIGN ÉPURÉ -->
+
             <div style="text-align: center; margin: 40px 0 50px 0;">
                 <a href="{{ route('recettes.create') }}" 
                    style="background: #1f2937; 
@@ -72,7 +72,7 @@
                 </a>
             </div>
 
-            <!-- Liste des recettes - DESIGN MODERNE -->
+
             @if($recettes->count() > 0)
                 <div style="display: grid; 
                            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
@@ -90,7 +90,7 @@
                              onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px rgba(0, 0, 0, 0.15)'"
                              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 30px rgba(0, 0, 0, 0.12)'">
                             
-                            <!-- Image Section -->
+            
                             <div style="width: 100%; height: 240px; position: relative; overflow: hidden;">
                                 @if($recette->image)
                                     <img src="{{ Storage::url($recette->image) }}" 
@@ -111,7 +111,7 @@
                                     </div>
                                 @endif
                                 
-                                <!-- Badge de type -->
+                
                                 @if($recette->type)
                                     <div style="position: absolute; 
                                                top: 16px; 
@@ -128,7 +128,7 @@
                                 @endif
                             </div>
                             
-                            <!-- Content Section -->
+            
                             <div style="padding: 24px;">
                                 <h3 style="font-size: 20px; 
                                            font-weight: 700; 
@@ -159,13 +159,16 @@
                                     @endif
                                 </div>
                                 
-                                <!-- Tags -->
-                                @if($recette->tags && count($recette->tags) > 0)
+                
+                                @php 
+                                    $tags = is_array($recette->tags) ? $recette->tags : (json_decode($recette->tags) ?? []);
+                                @endphp
+                                @if($recette->tags && count($tags) > 0)
                                     <div style="display: flex; 
                                                flex-wrap: wrap; 
                                                gap: 6px; 
                                                margin-bottom: 20px;">
-                                        @foreach($recette->tags as $tag)
+                                        @foreach($tags as $tag)
                                             @php
                                                 $tagLabels = [
                                                     'sans-gluten' => 'Sans gluten',
@@ -186,7 +189,7 @@
                                     </div>
                                 @endif
                                 
-                                <!-- Actions -->
+                
                                 <div style="display: flex; gap: 12px;">
                                     <a href="{{ route('recettes.show', $recette) }}" 
                                        style="flex: 1;
@@ -238,7 +241,7 @@
                     @endforeach
                 </div>
             @else
-                <!-- Aucune recette -->
+
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-center">
                     <div class="text-gray-500">
                         <span class="text-6xl">🍽️</span>

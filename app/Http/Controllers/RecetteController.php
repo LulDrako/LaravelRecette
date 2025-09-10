@@ -42,7 +42,7 @@ class RecetteController extends Controller
     {
         // Messages d'erreur personnalisés
         $messages = [
-            'image.mimes' => 'Le format du fichier est invalide. Seuls les formats JPG, PNG, GIF et WEBP sont acceptés.',
+            'image.mimes' => 'Le format du fichier est invalide. Seuls les formats JPG, PNG et WEBP sont acceptés.',
             'image.max' => 'La taille de l\'image ne doit pas dépasser 2 Mo.'
         ];
         
@@ -55,7 +55,7 @@ class RecetteController extends Controller
             'type' => 'nullable|string',
             'temps_preparation' => 'nullable|integer|min:1',
             'portions' => 'nullable|integer|min:1',
-            'image' => 'nullable|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max, formats spécifiques incluant webp
+            'image' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',
             'tags' => 'nullable|array',
             'tags.*' => 'string|in:sans-gluten,vegetarien,vegan,sans-lactose',
             'tags_custom' => 'nullable|string|max:255'
