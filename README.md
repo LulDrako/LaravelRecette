@@ -1,4 +1,3 @@
-
 # LaravelRecette
 
 🎯 Premier projet Laravel réalisé dans le cadre de mon apprentissage personnel du framework.  
@@ -21,6 +20,31 @@ Ce projet me permet de découvrir les bases de Laravel à travers un cas concret
 - Filtrer les recettes par ingrédient ou type de plat ou tags.
 - Authentification (voir les recettes d’un utilisateur spécifique)
 - Affichage des recettes de tous les utilisateurs
+
+
+## 🚀 Installation et utilisation
+
+### Prérequis
+- PHP 8+ 
+- Composer
+
+### Installation
+```bash
+# Cloner le projet
+git clone https://github.com/LulDrako/LaravelRecette.git
+cd LaravelRecette
+
+# Installer les dépendances
+composer install
+
+# Créer la base de données
+php artisan migrate
+
+# Lancer le serveur
+php artisan serve
+```
+
+Le projet sera accessible sur `http://localhost:8000`
 
 
 ## 🧪 En cours d'apprentissage

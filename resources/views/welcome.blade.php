@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LaravelCook - Vos meilleures recettes</title>
     
-    <!-- CSS personnalisé -->
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
-                <a href="/" class="logo">🍽️ LaravelCook</a>
+                <a href="/" class="logo">LaravelCook</a>
                 
                 @auth
                     <div class="nav-links">
@@ -26,7 +24,6 @@
         </div>
     </nav>
 
-    <!-- Section Hero -->
     <section class="hero">
         <div class="container">
             <h1>Partagez vos meilleures recettes</h1>
@@ -54,7 +51,6 @@
         </div>
     </section>
 
-    <!-- Section Fonctionnalités -->
     <section class="section">
         <div class="container">
             <h2 class="section-title">Pourquoi choisir notre plateforme ?</h2>
@@ -93,7 +89,6 @@
         </div>
     </section>
 
-    <!-- Section CTA -->
     <section class="section cta-section">
         <div class="container">
             <h2 class="section-title">Prêt à partager vos recettes ?</h2>
@@ -112,7 +107,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 LaravelCook. Une application pour partager la passion de la cuisine.</p>
