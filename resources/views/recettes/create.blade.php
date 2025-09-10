@@ -12,16 +12,6 @@
                 <form action="{{ route('recettes.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
-                    @if ($errors->any())
-                        <div class="error-container">
-                            <ul class="error-list">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    
                     <div class="form-group">
                         <label class="form-label">Titre de la recette *</label>
                         <input type="text" 
@@ -30,6 +20,9 @@
                                placeholder="Ex: Spaghetti à la carbonara"
                                class="form-input"
                                required>
+                        @error('titre')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
@@ -39,6 +32,9 @@
                                   placeholder="Décrivez votre recette en quelques mots..."
                                   class="form-textarea"
                                   required>{{ old('description') }}</textarea>
+                        @error('description')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-grid">
@@ -121,7 +117,13 @@
                         <div id="liste-ingredients" class="ingredients-empty">
                             Aucun ingrédient ajouté
                         </div>
-                        <textarea id="ingredients" name="ingredients" style="display: none;" required>{{ old('ingredients') }}</textarea>
+                        <div id="ingredients-error" class="error-message" style="display: none;">
+                            Vous devez ajouter au moins un ingrédient.
+                        </div>
+                        @error('ingredients')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
+                        <textarea id="ingredients" name="ingredients" style="display: none;">{{ old('ingredients') }}</textarea>
                     </div>
 
                     <div class="form-group">
@@ -131,6 +133,9 @@
                                   placeholder="1. Faire bouillir l'eau...&#10;2. Cuire les pâtes...&#10;3. Préparer la sauce..."
                                   class="form-textarea"
                                   required>{{ old('instructions') }}</textarea>
+                        @error('instructions')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">

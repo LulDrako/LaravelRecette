@@ -22,10 +22,15 @@ function supprimerIngredient(index) {
 function mettreAJourAffichage() {
     const liste = document.getElementById('liste-ingredients');
     const champCache = document.getElementById('ingredients');
+    const erreurDiv = document.getElementById('ingredients-error');
     
     if (ingredients.length === 0) {
         liste.innerHTML = 'Aucun ingrédient ajouté';
         liste.className = 'ingredients-empty';
+        // Masquer l'erreur quand il n'y a pas encore d'interaction
+        if (erreurDiv) {
+            erreurDiv.style.display = 'none';
+        }
     } else {
         liste.className = '';
         liste.style.color = '#374151';
@@ -40,10 +45,32 @@ function mettreAJourAffichage() {
                 </button>
             </div>
         `).join('');
+        
+        // Masquer l'erreur si des ingrédients sont ajoutés
+        if (erreurDiv) {
+            erreurDiv.style.display = 'none';
+        }
     }
     
     // Mettre à jour le champ caché
     champCache.value = ingredients.map(ing => `- ${ing}`).join('\n');
+}
+
+// Fonction pour valider les ingrédients
+function validerIngredients() {
+    const erreurDiv = document.getElementById('ingredients-error');
+    
+    if (ingredients.length === 0) {
+        if (erreurDiv) {
+            erreurDiv.style.display = 'block';
+        }
+        return false;
+    } else {
+        if (erreurDiv) {
+            erreurDiv.style.display = 'none';
+        }
+        return true;
+    }
 }
 
 // Initialisation au chargement de la page
@@ -68,5 +95,16 @@ document.addEventListener('DOMContentLoaded', function() {
         mettreAJourAffichage();
     } else {
         mettreAJourAffichage();
+    }
+    
+    // Ajouter la validation au formulaire
+    const formulaire = document.querySelector('form');
+    if (formulaire) {
+        formulaire.addEventListener('submit', function(e) {
+            if (!validerIngredients()) {
+                e.preventDefault();
+                return false;
+            }
+        });
     }
 });

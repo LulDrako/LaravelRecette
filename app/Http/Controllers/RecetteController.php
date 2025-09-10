@@ -11,7 +11,7 @@ class RecetteController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * FORMATION: Cette méthode affiche la liste de TOUTES les recettes
+     * FORMATION: Cette méthode affiche la liste de TOUTES les recettes (tous utilisateurs)
      */
     public function index()
     {
@@ -19,9 +19,24 @@ class RecetteController extends Controller
         // with('user') = optimisation pour éviter N+1 queries
         $recettes = Recette::with('user')->latest()->get();
         
-        // Retourner la vue avec les données
-        // compact('recettes') = ['recettes' => $recettes]
-        return view('recettes.index', compact('recettes'));
+        // Retourner la vue avec les données et indiquer que c'est TOUTES les recettes
+        return view('recettes.index', compact('recettes'))->with('pageTitle', 'Toutes les recettes');
+    }
+
+    /**
+     * Display user's own recipes.
+     * FORMATION: Cette méthode affiche seulement les recettes de l'utilisateur connecté
+     */
+    public function mesRecettes()
+    {
+        // Récupérer uniquement les recettes de l'utilisateur connecté
+        $recettes = Recette::where('user_id', auth()->id())
+                          ->with('user')
+                          ->latest()
+                          ->get();
+        
+        // Utiliser la même vue mais avec seulement nos recettes
+        return view('recettes.index', compact('recettes'))->with('pageTitle', 'Mes recettes');
     }
 
     /**
@@ -42,6 +57,10 @@ class RecetteController extends Controller
     {
         // Messages d'erreur personnalisés
         $messages = [
+            'titre.required' => 'Le titre de la recette est obligatoire.',
+            'description.required' => 'La description est obligatoire.',
+            'ingredients.required' => 'Vous devez ajouter au moins un ingrédient.',
+            'instructions.required' => 'Les instructions de préparation sont obligatoires.',
             'image.mimes' => 'Le format du fichier est invalide. Seuls les formats JPG, PNG et WEBP sont acceptés.',
             'image.max' => 'La taille de l\'image ne doit pas dépasser 2 Mo.'
         ];
@@ -183,6 +202,10 @@ class RecetteController extends Controller
         
         // Messages d'erreur personnalisés
         $messages = [
+            'titre.required' => 'Le titre de la recette est obligatoire.',
+            'description.required' => 'La description est obligatoire.',
+            'ingredients.required' => 'Vous devez ajouter au moins un ingrédient.',
+            'instructions.required' => 'Les instructions de préparation sont obligatoires.',
             'image.mimes' => 'Le format du fichier est invalide. Seuls les formats JPG, PNG et WEBP sont acceptés.',
             'image.max' => 'La taille de l\'image ne doit pas dépasser 2 Mo.'
         ];

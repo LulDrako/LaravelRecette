@@ -198,6 +198,21 @@
     background: #fecaca;
 }
 
+.index-card-meta-creation {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+.index-card-meta-updated {
+    color: #6b7280;
+    font-style: italic;
+}
+
+.index-card-delete-form {
+    flex: 0;
+}
+
 .index-empty {
     background: white;
     overflow: hidden;

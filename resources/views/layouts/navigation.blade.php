@@ -15,8 +15,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('mes-recettes.index')" :active="request()->routeIs('mes-recettes.*')">
+                        {{ __('Mes Recettes') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('recettes.index')" :active="request()->routeIs('recettes.*')">
-                        🍽️ {{ __('Recettes') }}
+                        {{ __('Recettes') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -72,6 +75,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('mes-recettes.index')" :active="request()->routeIs('mes-recettes.*')">
+                {{ __('Mes Recettes') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('recettes.index')" :active="request()->routeIs('recettes.*')">
+                {{ __('Recettes') }}
             </x-responsive-nav-link>
         </div>
 

@@ -19,6 +19,9 @@ Route::middleware('auth')->group(function () {
     
     // Routes pour les recettes (protégées par authentification)
     Route::resource('recettes', RecetteController::class);
+    
+    // Route pour les recettes de l'utilisateur connecté
+    Route::get('/mes-recettes', [RecetteController::class, 'mesRecettes'])->name('mes-recettes.index');
 });
 
 require __DIR__.'/auth.php';
