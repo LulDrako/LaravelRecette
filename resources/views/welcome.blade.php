@@ -11,7 +11,10 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
-                <a href="/" class="logo">LaravelCook</a>
+                <a href="/" class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width: 45px; height: 45px; margin-right: 8px; vertical-align: top; margin-top: 3px;">
+                    LaravelCook
+                </a>
                 
                 @auth
                     <div class="nav-links">
