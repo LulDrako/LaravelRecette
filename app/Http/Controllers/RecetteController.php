@@ -181,6 +181,12 @@ class RecetteController extends Controller
             abort(403, 'Vous ne pouvez pas modifier cette recette.');
         }
         
+        // Messages d'erreur personnalisés
+        $messages = [
+            'image.mimes' => 'Le format du fichier est invalide. Seuls les formats JPG, PNG et WEBP sont acceptés.',
+            'image.max' => 'La taille de l\'image ne doit pas dépasser 2 Mo.'
+        ];
+        
         // Validation (même que store mais pour modification)
         $validated = $request->validate([
             'titre' => 'required|max:255',
@@ -190,8 +196,33 @@ class RecetteController extends Controller
             'type' => 'nullable|string',
             'temps_preparation' => 'nullable|integer|min:1',
             'portions' => 'nullable|integer|min:1',
-            'image' => 'nullable|image|max:2048',
-        ]);
+            'image' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',
+            'tags' => 'nullable|array',
+            'tags.*' => 'string|in:sans-gluten,vegetarien,vegan,sans-lactose',
+            'tags_custom' => 'nullable|string|max:255'
+        ], $messages);
+        
+        // Traitement des tags : combiner les tags cochés et les tags personnalisés
+        $allTags = [];
+        
+        // Ajouter les tags cochés
+        if (isset($validated['tags'])) {
+            $allTags = array_merge($allTags, $validated['tags']);
+        }
+        
+        // Ajouter les tags personnalisés
+        if (!empty($validated['tags_custom'])) {
+            $customTags = array_map('trim', explode(',', $validated['tags_custom']));
+            $customTags = array_filter($customTags); // Enlever les éléments vides
+            $customTags = array_map('strtolower', $customTags); // Mettre en minuscules
+            $allTags = array_merge($allTags, $customTags);
+        }
+        
+        // Enlever les doublons et assigner les tags finaux
+        $validated['tags'] = array_unique($allTags);
+        
+        // Supprimer tags_custom car on n'en a plus besoin
+        unset($validated['tags_custom']);
         
         // Normaliser le format des ingrédients (convertir "- quantité nom" en "- quantité de nom")
         if (isset($validated['ingredients'])) {
