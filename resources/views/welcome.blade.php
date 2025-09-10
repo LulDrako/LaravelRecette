@@ -12,7 +12,7 @@
         <div class="container">
             <div class="nav-content">
                 <a href="/" class="logo">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width: 45px; height: 45px; margin-right: 8px; vertical-align: top; margin-top: 3px;">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo-icon">
                     LaravelCook
                 </a>
                 
@@ -112,7 +112,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 LaravelCook. Une application pour partager la passion de la cuisine.</p>
+            <p>&copy; 2025 LaravelCook. Créé par <a href="https://github.com/LulDrako" target="_blank" style="color: #ff6b35; text-decoration: none;">LulDrako</a> - Une application pour partager la passion de la cuisine.</p>
         </div>
     </footer>
 </body>

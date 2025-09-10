@@ -32,5 +32,12 @@
                 {{ $slot }}
             </main>
         </div>
+        
+        <!-- Footer -->
+        <footer style="background-color: #2c3e50; color: white; text-align: center; padding: 1.5rem 0; font-size: 0.9rem;">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <p>&copy; 2025 LaravelCook. Créé par <a href="https://github.com/LulDrako" target="_blank" style="color: #ff6b35; text-decoration: none;">LulDrako</a> - Une application pour partager la passion de la cuisine.</p>
+            </div>
+        </footer>
     </body>
 </html>

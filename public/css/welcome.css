@@ -36,16 +36,28 @@ body {
 }
 
 .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
+    font-size: 1.9rem;
+    font-weight: 800;
     color: #ff6b35;
     text-decoration: none;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Arial Black', Arial, sans-serif;
+    letter-spacing: 0.5px;
+    position: relative;
 }
 
 .logo:hover {
     color: #e55a2b;
-    transform: scale(1.05);
+    transform: scale(1.02);
+}
+
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    margin-right: 12px;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
 }
 
 .nav-links {
