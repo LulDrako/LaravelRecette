@@ -231,7 +231,7 @@
                                             @endif
                                         </div>
                                     @else
-                                        <!-- Pour "Toutes les recettes" - catalogue -->
+                                        <!-- Pour "Catalogue de recettes" -->
                                         <div class="index-card-meta index-card-meta-creation">
                                             <div class="index-card-meta-item">
                                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">

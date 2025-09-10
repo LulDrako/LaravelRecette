@@ -29,25 +29,25 @@
 }
 
 .index-create-button {
-    background: #1f2937;
+    background: #ff6b35;
     color: white;
     padding: 16px 32px;
     border-radius: 12px;
     text-decoration: none;
     font-weight: 600;
     font-size: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid #374151;
+    border: 1px solid #e55a2b;
 }
 
 .index-create-button:hover {
-    background: #374151;
+    background: #e55a2b;
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
 }
 
 .index-grid {
@@ -254,18 +254,21 @@
     gap: 8px;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
-    color: #374151;
+    color: #ff6b35;
     padding: 12px 20px;
     border-radius: 12px;
     text-decoration: none;
     font-weight: 600;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.2);
     transition: all 0.3s ease;
+    border: 1px solid rgba(255, 107, 53, 0.3);
 }
 
 .show-back-button:hover {
-    background: white;
+    background: #ff6b35;
+    color: white;
     transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
 }
 
 .show-content-wrapper {
@@ -632,12 +635,15 @@
 }
 
 .filter-btn-search {
-    background: #3b82f6;
+    background: #ff6b35;
     color: white;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
 }
 
 .filter-btn-search:hover {
-    background: #2563eb;
+    background: #e55a2b;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
 }
 
 .filter-btn-reset {

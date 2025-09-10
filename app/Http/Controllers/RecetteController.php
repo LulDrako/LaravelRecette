@@ -11,7 +11,7 @@ class RecetteController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * FORMATION: Cette méthode affiche la liste de TOUTES les recettes (tous utilisateurs)
+     * FORMATION: Cette méthode affiche la liste du CATALOGUE de recettes (tous utilisateurs)
      */
     public function index(Request $request)
     {
@@ -24,8 +24,8 @@ class RecetteController extends Controller
         // Récupérer les recettes filtrées
         $recettes = $query->latest()->get();
         
-        // Retourner la vue avec les données et indiquer que c'est TOUTES les recettes
-        return view('recettes.index', compact('recettes'))->with('pageTitle', 'Toutes les recettes');
+        // Retourner la vue avec les données et indiquer que c'est le CATALOGUE de recettes
+        return view('recettes.index', compact('recettes'))->with('pageTitle', 'Catalogue de recettes');
     }
 
     /**

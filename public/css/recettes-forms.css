@@ -79,7 +79,7 @@
 
 .form-input:focus {
     outline: none;
-    border-color: #1f2937;
+    border-color: #ff6b35;
 }
 
 .form-input-small {
@@ -93,7 +93,7 @@
 
 .form-input-small:focus {
     outline: none;
-    border-color: #1f2937;
+    border-color: #ff6b35;
 }
 
 .form-textarea {
@@ -108,7 +108,7 @@
 
 .form-textarea:focus {
     outline: none;
-    border-color: #1f2937;
+    border-color: #ff6b35;
 }
 
 .form-select {
@@ -123,7 +123,7 @@
 
 .form-select:focus {
     outline: none;
-    border-color: #1f2937;
+    border-color: #ff6b35;
 }
 
 .form-grid {
@@ -161,7 +161,7 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+    background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%);
     color: white;
     padding: 16px 32px;
     border: none;
@@ -171,10 +171,13 @@
     transition: all 0.3s ease;
     text-decoration: none;
     display: inline-block;
+    box-shadow: 0 3px 10px rgba(255, 107, 53, 0.3);
 }
 
 .btn-primary:hover {
-    background: #374151;
+    background: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
 }
 
 .btn-secondary {
@@ -192,7 +195,7 @@
 }
 
 .btn-add {
-    background: #1f2937;
+    background: #ff6b35;
     color: white;
     border: none;
     padding: 16px 24px;
@@ -200,10 +203,13 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
 }
 
 .btn-add:hover {
-    background: #374151;
+    background: #e55a2b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
 }
 
 .ingredients-input-container {
@@ -223,7 +229,7 @@
 
 .ingredients-input:focus {
     outline: none;
-    border-color: #1f2937;
+    border-color: #ff6b35;
 }
 
 .ingredients-empty {

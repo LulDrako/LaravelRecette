@@ -19,7 +19,7 @@
                         {{ __('Mes Recettes') }}
                     </x-nav-link>
                     <x-nav-link :href="route('recettes.index')" :active="request()->routeIs('recettes.*')">
-                        {{ __('Recettes') }}
+                        {{ __('Catalogue') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                 {{ __('Mes Recettes') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('recettes.index')" :active="request()->routeIs('recettes.*')">
-                {{ __('Recettes') }}
+                {{ __('Catalogue') }}
             </x-responsive-nav-link>
         </div>
 
