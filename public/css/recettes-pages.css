@@ -676,3 +676,42 @@
         justify-content: center;
     }
 }
+
+/* Classes pour les éléments avec du CSS inline */
+.tags-custom-container {
+    margin-top: 12px;
+}
+
+.tags-custom-label {
+    font-size: 13px;
+    color: #374151;
+}
+
+.tags-custom-input {
+    font-size: 13px;
+}
+
+.empty-create-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.empty-create-link {
+    color: #6366f1;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.empty-create-svg {
+    color: #6366f1;
+}
+
+.empty-subtitle {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #6b7280;
+}

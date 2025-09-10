@@ -3,27 +3,11 @@
 @endphp
 
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ $pageTitle ?? 'Recettes' }}
-            </h2>
-            <a href="{{ route('recettes.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center space-x-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                </svg>
-                <span>Nouvelle Recette</span>
-            </a>
-        </div>
-    </x-slot>
-
     <link rel="stylesheet" href="{{ asset('css/recettes-pages.css') }}">
 
-    <!-- Section de filtrage en pleine largeur -->
     <div class="filters-container">
         <form method="GET" action="{{ request()->routeIs('recettes.mes-recettes') ? route('recettes.mes-recettes') : route('recettes.index') }}" class="filters-form">
             <div class="filters-grid">
-                <!-- Recherche textuelle -->
                 <div class="filter-group">
                     <label for="search" class="filter-label">Rechercher</label>
                     <input type="text" 
@@ -34,7 +18,6 @@
                            class="filter-input">
                 </div>
 
-                <!-- Type de plat -->
                 <div class="filter-group">
                     <label for="type" class="filter-label">Type de plat</label>
                     <select id="type" name="type" class="filter-select">
@@ -47,7 +30,6 @@
                     </select>
                 </div>
 
-                <!-- Tags alimentaires -->
                 <div class="filter-group">
                     <label class="filter-label">Tags alimentaires</label>
                     <div class="filter-tags">
@@ -73,20 +55,17 @@
                         </label>
                     </div>
                     
-                    <!-- Tags personnalisés -->
-                    <div style="margin-top: 12px;">
-                        <label for="tags_custom" class="filter-label" style="font-size: 13px; color: #374151;">Tags personnalisés</label>
+                    <div class="tags-custom-container">
+                        <label for="tags_custom" class="filter-label tags-custom-label">Tags personnalisés</label>
                         <input type="text" 
                                id="tags_custom" 
                                name="tags_custom" 
                                value="{{ request('tags_custom') }}"
                                placeholder="Ex: rapide, facile, économique..."
-                               class="filter-input"
-                               style="font-size: 13px;">
+                               class="filter-input tags-custom-input">
                     </div>
                 </div>
 
-                <!-- Temps max -->
                 <div class="filter-group">
                     <label for="temps_max" class="filter-label">Temps max (min)</label>
                     <input type="number" 
@@ -98,7 +77,6 @@
                 </div>
             </div>
 
-            <!-- Boutons d'action -->
             <div class="filters-actions">
                 <button type="submit" class="filter-btn filter-btn-search">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
@@ -117,7 +95,6 @@
         </form>
     </div>
 
-    <!-- Contenu principal -->
     <div class="index-container">
         <div class="index-max-width">
             @if (session('success'))
@@ -210,17 +187,14 @@
                                         </div>
                                     @endif
                                     
-                                    <!-- Informations de création - seulement pour "Mes recettes" -->
                                     @if(($pageTitle ?? '') === 'Mes recettes')
                                         <div class="index-card-meta index-card-meta-creation">
-                                            <!-- Toujours afficher la date de création -->
                                             <div class="index-card-meta-item">
                                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M9,10V12H7V10H9M13,10V12H11V10H13M17,10V12H15V10H17M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H6V1H8V3H16V1H18V3H19M19,19V8H5V19H19M5,6H19V5H5V6Z"/>
                                                 </svg>
                                                 Créée le {{ $recette->created_at->format('d/m/Y à H:i') }}
                                             </div>
-                                            <!-- Afficher la date de modification si elle existe -->
                                             @if($recette->updated_at != $recette->created_at)
                                                 <div class="index-card-meta-item index-card-meta-updated">
                                                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
@@ -231,7 +205,6 @@
                                             @endif
                                         </div>
                                     @else
-                                        <!-- Pour "Catalogue de recettes" -->
                                         <div class="index-card-meta index-card-meta-creation">
                                             <div class="index-card-meta-item">
                                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
@@ -241,7 +214,6 @@
                                             </div>
                                             
                                             @if($recette->updated_at != $recette->created_at)
-                                                <!-- Si modifiée, afficher la date de modification avec point gris -->
                                                 <div class="index-card-meta-item">
                                                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                                                         <circle cx="12" cy="12" r="3"/>
@@ -249,7 +221,6 @@
                                                     Modifiée le {{ $recette->updated_at->format('d/m/Y à H:i') }}
                                                 </div>
                                             @else
-                                                <!-- Si pas modifiée, afficher la date de création avec calendrier -->
                                                 <div class="index-card-meta-item">
                                                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                                                         <path d="M9,10V12H7V10H9M13,10V12H11V10H13M17,10V12H15V10H17M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H6V1H8V3H16V1H18V3H19M19,19V8H5V19H19M5,6H19V5H5V6Z"/>
@@ -289,9 +260,9 @@
                     @if(($pageTitle ?? '') === 'Mes recettes')
                         <h3>Aucune recette dans votre collection</h3>
                         <p>Commencez par créer votre première recette !</p>
-                        <div style="text-align: center; margin-top: 20px;">
-                            <a href="{{ route('recettes.create') }}" style="color: #6366f1; text-decoration: none; font-size: 18px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
-                                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="color: #6366f1;">
+                        <div class="empty-create-container">
+                            <a href="{{ route('recettes.create') }}" class="empty-create-link">
+                                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" class="empty-create-svg">
                                     <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                                 </svg>
                                 Créer ma première recette
@@ -299,7 +270,7 @@
                         </div>
                     @else
                         <h3>Aucune recette dans le catalogue</h3>
-                        <p style="margin-top: 8px; font-size: 14px; color: #6b7280;">Essayez de modifier vos filtres de recherche ou revenez plus tard !</p>
+                        <p class="empty-subtitle">Essayez de modifier vos filtres de recherche ou revenez plus tard !</p>
                     @endif
                 </div>
             @endif

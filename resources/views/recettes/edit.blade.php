@@ -140,6 +140,12 @@
                         <div id="liste-ingredients" class="ingredients-empty">
                             Aucun ingrédient ajouté. Tapez "100g de tomate" puis cliquez Ajouter.
                         </div>
+                        <div id="ingredients-error" class="error-message" style="display: none;">
+                            Vous devez ajouter au moins un ingrédient.
+                        </div>
+                        @error('ingredients')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <textarea name="ingredients" id="ingredients" style="display: none;" required>{{ old('ingredients', $recette->ingredients) }}</textarea>
                     </div>
 
@@ -184,15 +190,9 @@
 
     <script src="{{ asset('js/ingredients.js') }}"></script>
     <script>
-        // Charger ingrédients existants
         document.addEventListener('DOMContentLoaded', function() {
             const existants = `{!! addslashes(old('ingredients', $recette->ingredients)) !!}`;
-            if (existants) {
-                ingredients = existants.split('\n').filter(line => line.trim()).map(line => line.replace(/^-\s*/, ''));
-                afficherIngredients();
-            } else {
-                afficherIngredients();
-            }
+            chargerIngredientsEdit(existants);
         });
     </script>
 </x-app-layout>
