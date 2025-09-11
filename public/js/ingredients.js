@@ -25,6 +25,65 @@ function supprimerIngredient(index) {
     mettreAJourAffichage();
 }
 
+let ingredientEnEdition = null;
+
+function modifierIngredient(index) {
+    if (ingredientEnEdition !== null) return; // Éviter les conflits
+    
+    ingredientEnEdition = index;
+    const liste = document.getElementById('liste-ingredients');
+    const ingredientDiv = liste.children[index];
+    
+    const texteActuel = ingredients[index];
+    ingredientDiv.innerHTML = `
+        <input type="text" 
+               value="${texteActuel}" 
+               id="edit-ingredient-${index}"
+               style="flex: 1; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px; margin-right: 8px;">
+        <button type="button" 
+                onclick="validerModification(${index})"
+                style="background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 4px; margin-right: 4px; cursor: pointer;">
+            Valider
+        </button>
+        <button type="button" 
+                onclick="annulerModification(${index})"
+                style="background: #6b7280; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+            Annuler
+        </button>
+    `;
+    
+    // Focus et sélection du texte
+    const input = document.getElementById(`edit-ingredient-${index}`);
+    input.focus();
+    input.select();
+    
+    // Valider avec Entrée
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            validerModification(index);
+        } else if (e.key === 'Escape') {
+            annulerModification(index);
+        }
+    });
+}
+
+function validerModification(index) {
+    const input = document.getElementById(`edit-ingredient-${index}`);
+    const nouveauTexte = input.value.trim();
+    
+    if (nouveauTexte !== '') {
+        ingredients[index] = nouveauTexte;
+    }
+    
+    ingredientEnEdition = null;
+    mettreAJourAffichage();
+}
+
+function annulerModification(index) {
+    ingredientEnEdition = null;
+    mettreAJourAffichage();
+}
+
 function mettreAJourAffichage() {
     const liste = document.getElementById('liste-ingredients');
     const champCache = document.getElementById('ingredients');
@@ -46,11 +105,16 @@ function mettreAJourAffichage() {
         liste.style.color = '#374151';
         liste.style.textAlign = 'left';
         liste.innerHTML = ingredients.map((ingredient, index) => `
-            <div class="ingredient-item">
-                <span>${ingredient}</span>
+            <div class="ingredient-item" style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f9fafb; border-radius: 6px; margin-bottom: 4px;">
+                <span style="flex: 1; color: #374151;">${ingredient}</span>
+                <button type="button" 
+                        onclick="modifierIngredient(${index})"
+                        style="background: #6b7280; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                    Modifier
+                </button>
                 <button type="button" 
                         onclick="supprimerIngredient(${index})"
-                        class="ingredient-delete">
+                        style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
                     Supprimer
                 </button>
             </div>
@@ -139,11 +203,16 @@ function mettreAJourAffichageInitial() {
         liste.style.color = '#374151';
         liste.style.textAlign = 'left';
         liste.innerHTML = ingredients.map((ingredient, index) => `
-            <div class="ingredient-item">
-                <span>${ingredient}</span>
+            <div class="ingredient-item" style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f9fafb; border-radius: 6px; margin-bottom: 4px;">
+                <span style="flex: 1; color: #374151;">${ingredient}</span>
+                <button type="button" 
+                        onclick="modifierIngredient(${index})"
+                        style="background: #6b7280; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                    Modifier
+                </button>
                 <button type="button" 
                         onclick="supprimerIngredient(${index})"
-                        class="ingredient-delete">
+                        style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
                     Supprimer
                 </button>
             </div>

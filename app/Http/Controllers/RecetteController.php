@@ -113,46 +113,11 @@ class RecetteController extends Controller
         // Ajouter l'ID de l'utilisateur connecté
         $validated['user_id'] = auth()->id();
         
-        // Normaliser le format des ingrédients (convertir "- quantité nom" en "- quantité de nom")
-        if (isset($validated['ingredients'])) {
-            $lignes = explode("\n", $validated['ingredients']);
-            $ingredientsNormalises = [];
-            
-            foreach ($lignes as $ligne) {
-                $ligne = trim($ligne);
-                if (!empty($ligne) && strpos($ligne, '-') === 0) {
-                    // Enlever le tiret et les espaces
-                    $contenu = trim(substr($ligne, 1));
-                    
-                    // Si ce n'est pas déjà au format "quantité de nom"
-                    if (!preg_match('/\s+de\s+/', $contenu)) {
-                        // Séparer en mots
-                        $mots = explode(' ', $contenu);
-                        if (count($mots) >= 2) {
-                            $quantite = $mots[0];
-                            $nom = implode(' ', array_slice($mots, 1));
-                            
-                            // Si le 2e mot ressemble à une unité, l'inclure dans la quantité
-                            if (count($mots) > 2 && preg_match('/^(g|kg|ml|l|cl|cuillères?|c\.|cs|cc|tasses?|pièces?|tranches?)$/i', $mots[1])) {
-                                $quantite = $mots[0] . ' ' . $mots[1];
-                                $nom = implode(' ', array_slice($mots, 2));
-                            }
-                            
-                            $ingredientsNormalises[] = "- $quantite de $nom";
-                        } else {
-                            $ingredientsNormalises[] = $ligne;
-                        }
-                    } else {
-                        $ingredientsNormalises[] = $ligne;
-                    }
-                } else if (!empty($ligne)) {
-                    $ingredientsNormalises[] = $ligne;
-                }
-            }
-            
-            $validated['ingredients'] = implode("\n", $ingredientsNormalises);
-        }
+        // Conserver tel quel ce que l'utilisateur a saisi pour les ingrédients
+        // (les tirets sont déjà gérés côté JS)
         
+        // Laisser les instructions telles que saisies (numérotation gérée côté client)
+
         // Gérer l'upload d'image si présente
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('recettes', 'public');
@@ -255,45 +220,10 @@ class RecetteController extends Controller
         // Supprimer tags_custom car on n'en a plus besoin
         unset($validated['tags_custom']);
         
-        // Normaliser le format des ingrédients (convertir "- quantité nom" en "- quantité de nom")
-        if (isset($validated['ingredients'])) {
-            $lignes = explode("\n", $validated['ingredients']);
-            $ingredientsNormalises = [];
-            
-            foreach ($lignes as $ligne) {
-                $ligne = trim($ligne);
-                if (!empty($ligne) && strpos($ligne, '-') === 0) {
-                    // Enlever le tiret et les espaces
-                    $contenu = trim(substr($ligne, 1));
-                    
-                    // Si ce n'est pas déjà au format "quantité de nom"
-                    if (!preg_match('/\s+de\s+/', $contenu)) {
-                        // Séparer en mots
-                        $mots = explode(' ', $contenu);
-                        if (count($mots) >= 2) {
-                            $quantite = $mots[0];
-                            $nom = implode(' ', array_slice($mots, 1));
-                            
-                            // Si le 2e mot ressemble à une unité, l'inclure dans la quantité
-                            if (count($mots) > 2 && preg_match('/^(g|kg|ml|l|cl|cuillères?|c\.|cs|cc|tasses?|pièces?|tranches?)$/i', $mots[1])) {
-                                $quantite = $mots[0] . ' ' . $mots[1];
-                                $nom = implode(' ', array_slice($mots, 2));
-                            }
-                            
-                            $ingredientsNormalises[] = "- $quantite de $nom";
-                        } else {
-                            $ingredientsNormalises[] = $ligne;
-                        }
-                    } else {
-                        $ingredientsNormalises[] = $ligne;
-                    }
-                } else if (!empty($ligne)) {
-                    $ingredientsNormalises[] = $ligne;
-                }
-            }
-            
-            $validated['ingredients'] = implode("\n", $ingredientsNormalises);
-        }
+        // Conserver tel quel ce que l'utilisateur a saisi pour les ingrédients
+        // (les tirets sont déjà gérés côté JS)
+
+        // Laisser les instructions telles que saisies (numérotation gérée côté client)
         
         // Gérer nouvelle image si uploadée
         if ($request->hasFile('image')) {

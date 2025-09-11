@@ -112,7 +112,12 @@
                             <div class="show-info-item">
                                 <div class="show-info-icon">
                                     <svg width="16" height="16" fill="#6b7280" viewBox="0 0 24 24">
-                                        <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                                        <circle cx="5" cy="7" r="3.5"/>
+                                        <circle cx="12" cy="7" r="3.5"/>
+                                        <circle cx="19" cy="7" r="3.5"/>
+                                        <path d="M5 12c-2.5 0-5 1.2-5 3v2h10v-2c0-1.8-2.5-3-5-3z"/>
+                                        <path d="M12 12c-2.5 0-5 1.2-5 3v2h10v-2c0-1.8-2.5-3-5-3z"/>
+                                        <path d="M19 12c-2.5 0-5 1.2-5 3v2h10v-2c0-1.8-2.5-3-5-3z"/>
                                     </svg>
                                 </div>
                                 <div>

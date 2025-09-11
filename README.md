@@ -9,7 +9,7 @@ Ce projet me permet de découvrir les bases de Laravel à travers un cas concret
 - Laravel 11
 - Laravel Breeze (authentification)
 - Blade (front-end)
-- SQLite
+- PostgreSQL
 - PHP 8+
 
 

@@ -189,6 +189,7 @@
     </div>
 
     <script src="{{ asset('js/ingredients.js') }}"></script>
+    <script src="{{ asset('js/instructions.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const existants = `{!! addslashes(old('ingredients', $recette->ingredients)) !!}`;

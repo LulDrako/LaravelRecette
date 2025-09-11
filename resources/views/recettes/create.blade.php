@@ -158,4 +158,5 @@
     </div>
 
     <script src="{{ asset('js/ingredients.js') }}"></script>
+    <script src="{{ asset('js/instructions.js') }}"></script>
 </x-app-layout>
