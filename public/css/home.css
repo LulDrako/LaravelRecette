@@ -1,0 +1,225 @@
+.home-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+}
+
+.home-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-welcome {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.home-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #ff6b35, #f39c12);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.home-subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 400;
+}
+
+.home-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.home-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    width: 475px;
+    height: 250px;
+}
+
+.home-card-orange::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b35, #f39c12);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.home-card-blue::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.home-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.home-card-orange:hover {
+    border-color: #ff6b35;
+}
+
+.home-card-blue:hover {
+    border-color: #3b82f6;
+}
+
+.home-card:hover::before {
+    opacity: 1;
+}
+
+.home-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.home-card-icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.home-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0;
+}
+
+.home-card-arrow {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: #64748b;
+}
+
+.home-card:hover .home-card-arrow {
+    background: #ff6b35;
+    color: white;
+    transform: translateX(4px);
+}
+
+.home-card-description {
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.home-card-stats {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.home-card-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.home-card-orange {
+    border-left: 4px solid #ff6b35;
+}
+
+.home-card-blue {
+    border-left: 4px solid #3b82f6;
+}
+
+.home-card-orange:hover {
+    border-color: #ff6b35;
+}
+
+.home-card-blue:hover {
+    border-color: #3b82f6;
+}
+
+.home-card-blue:hover .home-card-arrow {
+    background: #3b82f6;
+    color: white;
+    transform: translateX(4px);
+}
+
+.home-card {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.home-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.home-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .home-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .home-title {
+        font-size: 2rem;
+    }
+    
+    .home-card {
+        padding: 1.5rem;
+        width: 100%;
+        max-width: 350px;
+    }
+}
