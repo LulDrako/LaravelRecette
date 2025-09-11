@@ -42,7 +42,6 @@ composer install
 createdb laravel_recettes
 
 # 4. Créer le fichier .env avec ce contenu :
-
 Créer un fichier .env à la racine avec :
 
 APP_NAME=LaravelRecette
