@@ -60,7 +60,6 @@ DB_PASSWORD=votre_mot_de_passe_postgresql
 
 ⚠️ Laissez APP_KEY= vide, elle sera générée à l'étape 5 !
 
-```bash
 # 5. Générer la clé d'application
 php artisan key:generate
 
