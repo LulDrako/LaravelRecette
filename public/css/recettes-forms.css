@@ -77,9 +77,14 @@
     transition: all 0.3s ease;
 }
 
+
+/* Nouveau style focus moderne */
 .form-input:focus {
     outline: none;
-    border-color: #ff6b35;
+    border-color: #ffb86b;
+    box-shadow: 0 0 0 2px #ffedd5;
+    background: #fff;
+    transition: box-shadow 0.2s, border-color 0.2s;
 }
 
 .form-input-small {
@@ -93,7 +98,10 @@
 
 .form-input-small:focus {
     outline: none;
-    border-color: #ff6b35;
+    border-color: #ffb86b;
+    box-shadow: 0 0 0 2px #ffedd5;
+    background: #fff;
+    transition: box-shadow 0.2s, border-color 0.2s;
 }
 
 .form-textarea {
@@ -108,7 +116,10 @@
 
 .form-textarea:focus {
     outline: none;
-    border-color: #ff6b35;
+    border-color: #ffb86b;
+    box-shadow: 0 0 0 2px #ffedd5;
+    background: #fff;
+    transition: box-shadow 0.2s, border-color 0.2s;
 }
 
 .form-select {
@@ -123,7 +134,10 @@
 
 .form-select:focus {
     outline: none;
-    border-color: #ff6b35;
+    border-color: #ffb86b;
+    box-shadow: 0 0 0 2px #ffedd5;
+    background: #fff;
+    transition: box-shadow 0.2s, border-color 0.2s;
 }
 
 .form-grid {
@@ -229,7 +243,10 @@
 
 .ingredients-input:focus {
     outline: none;
-    border-color: #ff6b35;
+    border-color: #ffb86b;
+    box-shadow: 0 0 0 2px #ffedd5;
+    background: #fff;
+    transition: box-shadow 0.2s, border-color 0.2s;
 }
 
 .ingredients-empty {

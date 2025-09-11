@@ -18,8 +18,8 @@
                 
                 @auth
                     <div class="nav-links">
-                        <a href="{{ url('/dashboard') }}" class="btn-primary">
-                            Dashboard
+                        <a href="{{ url('/home') }}" class="btn-primary">
+                            Accueil
                         </a>
                     </div>
                 @endauth
