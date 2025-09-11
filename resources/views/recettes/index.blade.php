@@ -7,7 +7,8 @@
 
     <div class="filters-container">
         <form method="GET" action="{{ request()->routeIs('recettes.mes-recettes') ? route('recettes.mes-recettes') : route('recettes.index') }}" class="filters-form">
-            <div class="filters-grid">
+            <!-- Ligne principale avec tous les inputs -->
+            <div class="filters-main-row">
                 <div class="filter-group">
                     <label for="search" class="filter-label">Rechercher</label>
                     <input type="text" 
@@ -31,6 +32,16 @@
                 </div>
 
                 <div class="filter-group">
+                    <label for="temps_max" class="filter-label">Temps max (min)</label>
+                    <input type="number" 
+                           id="temps_max" 
+                           name="temps_max" 
+                           value="{{ request('temps_max') }}"
+                           placeholder="Ex: 30"
+                           class="filter-input">
+                </div>
+
+                <div class="filter-group tags-group">
                     <label class="filter-label">Tags alimentaires</label>
                     <div class="filter-tags">
                         <label class="filter-tag">
@@ -54,29 +65,20 @@
                             <span>Sans lactose</span>
                         </label>
                     </div>
-                    
-                    <div class="tags-custom-container">
-                        <label for="tags_custom" class="tags-custom-label">Tags personnalisés</label>
-                        <input type="text" 
-                               id="tags_custom" 
-                               name="tags_custom" 
-                               value="{{ request('tags_custom') }}"
-                               placeholder="Ex: rapide, facile, économique..."
-                               class="tags-custom-input">
-                    </div>
                 </div>
 
                 <div class="filter-group">
-                    <label for="temps_max" class="filter-label">Temps max (min)</label>
-                    <input type="number" 
-                           id="temps_max" 
-                           name="temps_max" 
-                           value="{{ request('temps_max') }}"
-                           placeholder="Ex: 30"
+                    <label for="tags_custom" class="filter-label">Tags personnalisés</label>
+                    <input type="text" 
+                           id="tags_custom" 
+                           name="tags_custom" 
+                           value="{{ request('tags_custom') }}"
+                           placeholder="Ex: rapide, facile, économique..."
                            class="filter-input">
                 </div>
             </div>
 
+            <!-- Boutons d'action -->
             <div class="filters-actions">
                 <button type="submit" class="filter-btn filter-btn-search">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
