@@ -18,33 +18,60 @@ Ce projet me permet de découvrir les bases de Laravel à travers un cas concret
 - Ajouter, modifier, supprimer une recette
 - Upload d'image pour chaque recette
 - Filtrer les recettes par ingrédient ou type de plat ou tags.
-- Authentification (voir les recettes d’un utilisateur spécifique)
+- Authentification (voir les recettes d'un utilisateur spécifique)
 - Affichage des recettes de tous les utilisateurs
 
 
-## 🚀 Installation et utilisation
+## 🚀 Installation rapide
 
 ### Prérequis
 - PHP 8+ 
 - Composer
+- PostgreSQL 12+
 
 ### Installation
 ```bash
-# Cloner le projet
+# 1. Cloner le projet
 git clone https://github.com/LulDrako/LaravelRecette.git
 cd LaravelRecette
 
-# Installer les dépendances
+# 2. Installer les dépendances
 composer install
 
-# Créer la base de données
+# 3. Créer la base de données PostgreSQL
+createdb laravel_recettes
+
+# 4. Créer le fichier .env avec ce contenu :
+
+Créer un fichier .env à la racine avec :
+
+APP_NAME=LaravelRecette
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=laravel_recettes
+DB_USERNAME=postgres
+DB_PASSWORD=votre_mot_de_passe_postgresql
+
+⚠️ Laissez APP_KEY= vide, elle sera générée à l'étape 5 !
+
+```bash
+# 5. Générer la clé d'application
+php artisan key:generate
+
+# 6. Exécuter les migrations
 php artisan migrate
 
-# Lancer le serveur
+# 7. Lancer le serveur
 php artisan serve
 ```
 
-Le projet sera accessible sur `http://localhost:8000`
+🎉 **C'est tout !** L'application est accessible sur `http://localhost:8000`
 
 
 ## 🧪 En cours d'apprentissage
