@@ -41,21 +41,8 @@ composer install
 # 3. Créer la base de données PostgreSQL
 createdb laravel_recettes
 
-# 4. Créer le fichier .env avec ce contenu :
-Créer un fichier .env à la racine avec :
-
-APP_NAME=LaravelRecette
-APP_ENV=local
-APP_KEY=
-APP_DEBUG=true
-APP_URL=http://localhost
-
-DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=laravel_recettes
-DB_USERNAME=postgres
-DB_PASSWORD=votre_mot_de_passe_postgresql
+# 4. Créer le fichier .env
+Copier le fichier .env.example et le renommer en .env, puis remplir vos informations.
 
 ⚠️ Laissez APP_KEY= vide, elle sera générée à l'étape 5 !
 
