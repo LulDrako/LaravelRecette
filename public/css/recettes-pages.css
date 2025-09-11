@@ -527,7 +527,7 @@
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 32px 0;
+    padding: 16px 0;
     margin: 0;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     width: 100%;
@@ -539,7 +539,7 @@
     padding: 0 24px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
 }
 
 .filters-grid {
@@ -612,11 +612,13 @@
     font-weight: 700;
 }
 
+
 .filters-actions {
     display: flex;
     gap: 12px;
-    justify-content: center;
+    justify-content: flex-end;
     flex-wrap: wrap;
+    margin-top: -65px;
 }
 
 .filter-btn {
