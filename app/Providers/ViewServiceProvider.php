@@ -17,13 +17,8 @@ class ViewServiceProvider extends ServiceProvider
         // Forcer les bons chemins de vues
         $view = $this->app->make(Factory::class);
         
-        // Vider tous les chemins existants
-        $paths = $view->getFinder()->getPaths();
-        foreach ($paths as $path) {
-            $view->getFinder()->removeLocation($path);
-        }
-        
-        // Ajouter le bon chemin
-        $view->addLocation(resource_path('views'));
+        // Remplacer complètement le finder
+        $finder = $view->getFinder();
+        $finder->setPaths([resource_path('views')]);
     }
 }
