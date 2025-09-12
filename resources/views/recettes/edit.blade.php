@@ -3,7 +3,6 @@
 @endphp
 
 <x-app-layout>
-    <link rel="stylesheet" href="{{ asset('css/recettes-forms.css') }}">
     
     <div class="recette-container">
         <div class="recette-wrapper">
@@ -56,6 +55,7 @@
                                 <option value="plat" {{ old('type', $recette->type) == 'plat' ? 'selected' : '' }}>Plat principal</option>
                                 <option value="dessert" {{ old('type', $recette->type) == 'dessert' ? 'selected' : '' }}>Dessert</option>
                                 <option value="apero" {{ old('type', $recette->type) == 'apero' ? 'selected' : '' }}>Apéritif</option>
+                                <option value="boisson" {{ old('type', $recette->type) == 'boisson' ? 'selected' : '' }}>Boisson</option>
                             </select>
                         </div>
                         <div>
@@ -188,8 +188,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/ingredients.js') }}"></script>
-    <script src="{{ asset('js/instructions.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const existants = `{!! addslashes(old('ingredients', $recette->ingredients)) !!}`;

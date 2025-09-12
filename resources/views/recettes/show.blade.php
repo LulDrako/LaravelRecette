@@ -3,7 +3,6 @@
 @endphp
 
 <x-app-layout>
-    <link rel="stylesheet" href="{{ asset('css/recettes-pages.css') }}">
     
     <div class="show-container">
         <div class="show-back-container">

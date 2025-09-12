@@ -286,24 +286,55 @@ class RecetteController extends Controller
             $query->where('type', $request->type);
         }
 
-        // Filtre par tags alimentaires et personnalisés
+        // Filtre par tags alimentaires (recherche dans la colonne JSON tags)
         if ($request->filled('tags')) {
             $tags = $request->tags;
             $query->where(function($q) use ($tags) {
                 foreach ($tags as $tag) {
-                    $q->where('tags', 'LIKE', "%{$tag}%");
+                    $q->orWhereRaw("tags::jsonb @> ?::jsonb", [json_encode([$tag])]);
                 }
             });
         }
 
-        // Filtre par tags personnalisés (recherche dans la même colonne tags)
+        // Filtre par tags personnalisés (recherche intelligente dans la colonne JSON tags)
         if ($request->filled('tags_custom')) {
             $tagsCustom = explode(',', $request->tags_custom);
             $query->where(function($q) use ($tagsCustom) {
                 foreach ($tagsCustom as $tag) {
-                    $tag = trim(strtolower($tag)); // Enlever les espaces et mettre en minuscules
+                    $tag = trim($tag); // Enlever les espaces en début/fin
                     if (!empty($tag)) {
-                        $q->where('tags', 'LIKE', "%{$tag}%");
+                        $q->where(function($subQ) use ($tag) {
+                            // Recherche exacte avec PostgreSQL
+                            $subQ->orWhereRaw("tags::jsonb @> ?::jsonb", [json_encode([$tag])])
+                                 // Recherche avec espaces remplacés par des tirets (pour "sans gl" trouver "sans-gluten")
+                                 ->orWhereRaw("tags::jsonb @> ?::jsonb", [json_encode([str_replace(' ', '-', $tag)])])
+                                 // Recherche avec tirets remplacés par des espaces (pour "sans-gluten" trouver "sans gl")
+                                 ->orWhereRaw("tags::jsonb @> ?::jsonb", [json_encode([str_replace('-', ' ', $tag)])])
+                                 // Recherche avec LIKE sur le JSON (plus flexible pour les accents)
+                                 ->orWhereRaw("tags::text LIKE ?", ["%\"{$tag}\"%"])
+                                 // Recherche partielle (pour "sans glu" trouver "sans-gluten")
+                                 ->orWhereRaw("tags::text LIKE ?", ["%{$tag}%"])
+                                 // Recherche avec espaces remplacés par des tirets (pour "sans gl" trouver "sans-gluten")
+                                 ->orWhereRaw("tags::text LIKE ?", ["%" . str_replace(' ', '-', $tag) . "%"])
+                                 // Recherche avec tirets remplacés par des espaces (pour "sans-gluten" trouver "sans gl")
+                                 ->orWhereRaw("tags::text LIKE ?", ["%" . str_replace('-', ' ', $tag) . "%"])
+                                 // Recherche avec caractères unicode échappés (pour "ét" trouver "été")
+                                 ->orWhereRaw("tags::text LIKE ?", ["%" . str_replace(['é', 'è', 'ê', 'ë', 'à', 'á', 'â', 'ä', 'ù', 'ú', 'û', 'ü', 'ì', 'í', 'î', 'ï', 'ò', 'ó', 'ô', 'ö', 'ç'], ['\\u00e9', '\\u00e8', '\\u00ea', '\\u00eb', '\\u00e0', '\\u00e1', '\\u00e2', '\\u00e4', '\\u00f9', '\\u00fa', '\\u00fb', '\\u00fc', '\\u00ec', '\\u00ed', '\\u00ee', '\\u00ef', '\\u00f2', '\\u00f3', '\\u00f4', '\\u00f6', '\\u00e7'], $tag) . "%"])
+                                 // Recherche avec normalisation des accents (inverser la logique)
+                                 ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(tags::text, 'é', 'e'), 'è', 'e'), 'ê', 'e'), 'ë', 'e') LIKE ?", ["%\"{$tag}\"%"])
+                                 ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(tags::text, 'à', 'a'), 'á', 'a'), 'â', 'a'), 'ä', 'a') LIKE ?", ["%\"{$tag}\"%"])
+                                 ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(tags::text, 'ù', 'u'), 'ú', 'u'), 'û', 'u'), 'ü', 'u') LIKE ?", ["%\"{$tag}\"%"])
+                                 ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(tags::text, 'ì', 'i'), 'í', 'i'), 'î', 'i'), 'ï', 'i') LIKE ?", ["%\"{$tag}\"%"])
+                                 ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(tags::text, 'ò', 'o'), 'ó', 'o'), 'ô', 'o'), 'ö', 'o') LIKE ?", ["%\"{$tag}\"%"])
+                                 ->orWhereRaw("REPLACE(tags::text, 'ç', 'c') LIKE ?", ["%\"{$tag}\"%"])
+                                 // Recherche partielle avec normalisation des accents
+                                 ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(tags::text, 'é', 'e'), 'è', 'e'), 'ê', 'e'), 'ë', 'e') LIKE ?", ["%{$tag}%"])
+                                 ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(tags::text, 'à', 'a'), 'á', 'a'), 'â', 'a'), 'ä', 'a') LIKE ?", ["%{$tag}%"])
+                                 ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(tags::text, 'ù', 'u'), 'ú', 'u'), 'û', 'u'), 'ü', 'u') LIKE ?", ["%{$tag}%"])
+                                 ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(tags::text, 'ì', 'i'), 'í', 'i'), 'î', 'i'), 'ï', 'i') LIKE ?", ["%{$tag}%"])
+                                 ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(tags::text, 'ò', 'o'), 'ó', 'o'), 'ô', 'o'), 'ö', 'o') LIKE ?", ["%{$tag}%"])
+                                 ->orWhereRaw("REPLACE(tags::text, 'ç', 'c') LIKE ?", ["%{$tag}%"]);
+                        });
                     }
                 }
             });

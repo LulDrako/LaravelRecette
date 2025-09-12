@@ -21,6 +21,7 @@
                 </div>
             </div>
 
+            @auth
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -52,6 +53,12 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            @else
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <a href="{{ route('login') }}" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Se connecter</a>
+                <a href="{{ route('register') }}" class="bg-orange-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-orange-600 ml-2">S'inscrire</a>
+            </div>
+            @endauth
 
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
@@ -77,6 +84,7 @@
             </x-responsive-nav-link>
         </div>
 
+        @auth
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
@@ -99,5 +107,13 @@
                 </form>
             </div>
         </div>
+        @else
+        <div class="pt-4 pb-1 border-t border-gray-200">
+            <div class="px-4 space-y-2">
+                <a href="{{ route('login') }}" class="block text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Se connecter</a>
+                <a href="{{ route('register') }}" class="block bg-orange-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-orange-600">S'inscrire</a>
+            </div>
+        </div>
+        @endauth
     </div>
 </nav>

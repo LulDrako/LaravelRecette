@@ -3,7 +3,6 @@
 @endphp
 
 <x-app-layout>
-    <link rel="stylesheet" href="{{ asset('css/recettes-pages.css') }}">
 
     <div class="filters-container">
         <form method="GET" action="{{ request()->routeIs('recettes.mes-recettes') ? route('recettes.mes-recettes') : route('recettes.index') }}" class="filters-form">
@@ -32,7 +31,7 @@
                 </div>
 
                 <div class="filter-group">
-                    <label for="temps_max" class="filter-label">Temps max (min)</label>
+                    <label for="temps_max" class="filter-label">Temps max (minutes)</label>
                     <input type="number" 
                            id="temps_max" 
                            name="temps_max" 
@@ -79,12 +78,6 @@
 
                 <!-- Boutons à droite -->
                 <div class="filter-group buttons-group">
-                    <button type="submit" class="filter-btn filter-btn-search">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                        </svg>
-                        Rechercher
-                    </button>
                     <a href="{{ request()->routeIs('recettes.mes-recettes') ? route('recettes.mes-recettes') : route('recettes.index') }}" 
                        class="filter-btn filter-btn-reset">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
@@ -138,7 +131,8 @@
                                                 'entree' => 'Entrée',
                                                 'plat' => 'Plat principal',
                                                 'dessert' => 'Dessert',
-                                                'apero' => 'Apéritif'
+                                                'apero' => 'Apéritif',
+                                                'boisson' => 'Boisson'
                                             ];
                                         @endphp
                                         {{ $typeLabels[$recette->type] ?? ucfirst($recette->type) }}
@@ -194,51 +188,52 @@
                                     </div>
                                 @endif
                                 
-                                @if(($pageTitle ?? '') === 'Mes recettes')
-                                    <div class="index-card-meta index-card-meta-creation">
-                                        <div class="index-card-meta-item">
-                                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M9,10V12H7V10H9M13,10V12H11V10H13M17,10V12H15V10H17M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H6V1H8V3H16V1H18V3H19M19,19V8H5V19H19M5,6H19V5H5V6Z"/>
-                                            </svg>
-                                            Créée le {{ $recette->created_at->format('d/m/Y à H:i') }}
-                                        </div>
-                                        @if($recette->updated_at != $recette->created_at)
-                                            <div class="index-card-meta-item index-card-meta-updated">
-                                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                                    <circle cx="12" cy="12" r="3"/>
-                                                </svg>
-                                                Modifiée le {{ $recette->updated_at->format('d/m/Y à H:i') }}
-                                            </div>
-                                        @endif
-                                    </div>
-                                @else
-                                    <div class="index-card-meta index-card-meta-creation">
-                                        <div class="index-card-meta-item">
-                                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
-                                            </svg>
-                                            Par {{ $recette->user->name }}
-                                        </div>
-                                        
-                                        @if($recette->updated_at != $recette->created_at)
-                                            <div class="index-card-meta-item">
-                                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                                    <circle cx="12" cy="12" r="3"/>
-                                                </svg>
-                                                Modifiée le {{ $recette->updated_at->format('d/m/Y à H:i') }}
-                                            </div>
-                                        @else
+                                <div class="mt-auto">
+                                    @if(($pageTitle ?? '') === 'Mes recettes')
+                                        <div class="index-card-meta index-card-meta-creation">
                                             <div class="index-card-meta-item">
                                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M9,10V12H7V10H9M13,10V12H11V10H13M17,10V12H15V10H17M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H6V1H8V3H16V1H18V3H19M19,19V8H5V19H19M5,6H19V5H5V6Z"/>
                                                 </svg>
                                                 Créée le {{ $recette->created_at->format('d/m/Y à H:i') }}
                                             </div>
-                                        @endif
-                                    </div>
-                                @endif
-                                
-                                <div class="index-card-actions">
+                                            @if($recette->updated_at != $recette->created_at)
+                                                <div class="index-card-meta-item index-card-meta-updated">
+                                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                                        <circle cx="12" cy="12" r="3"/>
+                                                    </svg>
+                                                    Mod. {{ $recette->updated_at->format('d/m/Y') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @else
+                                        <div class="index-card-meta index-card-meta-creation">
+                                            <div class="index-card-meta-item">
+                                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                                                </svg>
+                                                {{ $recette->user->name }}
+                                            </div>
+                                            
+                                            @if($recette->updated_at != $recette->created_at)
+                                                <div class="index-card-meta-item">
+                                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                                        <circle cx="12" cy="12" r="3"/>
+                                                    </svg>
+                                                    Modifiée le {{ $recette->updated_at->format('d/m/Y à H:i') }}
+                                                </div>
+                                            @else
+                                                <div class="index-card-meta-item">
+                                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M9,10V12H7V10H9M13,10V12H11V10H13M17,10V12H15V10H17M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H6V1H8V3H16V1H18V3H19M19,19V8H5V19H19M5,6H19V5H5V6Z"/>
+                                                    </svg>
+                                                    Créée le {{ $recette->created_at->format('d/m/Y à H:i') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endif
+                                    
+                                    <div class="index-card-actions">
                                     <a href="{{ route('recettes.show', $recette) }}" class="index-card-view">
                                         Voir la recette
                                     </a>
@@ -256,6 +251,7 @@
                                             </button>
                                         </form>
                                     @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -283,4 +279,16 @@
             @endif
         </div>
     </div>
+
+    <script>
+        // Activer la recherche automatique
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof activerRechercheAutomatique === 'function') {
+                activerRechercheAutomatique();
+            }
+            if (typeof ameliorerRechercheTags === 'function') {
+                ameliorerRechercheTags();
+            }
+        });
+    </script>
 </x-app-layout>

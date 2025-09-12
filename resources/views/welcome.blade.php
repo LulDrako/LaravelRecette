@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LaravelCook - Vos meilleures recettes</title>
     
-    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="welcome-page">
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">

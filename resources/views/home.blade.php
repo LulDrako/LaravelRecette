@@ -1,8 +1,5 @@
 <x-app-layout>
 
-
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-
     <div class="home-container">
         <div class="home-content">
             <div class="home-welcome">

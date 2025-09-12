@@ -1,5 +1,4 @@
 <x-app-layout>
-    <link rel="stylesheet" href="{{ asset('css/recettes-forms.css') }}">
     
     <div class="recette-container">
         <div class="recette-wrapper">
@@ -157,6 +156,4 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/ingredients.js') }}"></script>
-    <script src="{{ asset('js/instructions.js') }}"></script>
 </x-app-layout>
