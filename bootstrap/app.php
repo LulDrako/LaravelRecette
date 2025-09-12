@@ -15,4 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
+    })
+    ->withProviders(function (array $providers): array {
+        // Forcer la configuration des vues
+        $providers[] = \App\Providers\ViewServiceProvider::class;
+        return $providers;
     })->create();
