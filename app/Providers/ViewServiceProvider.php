@@ -15,6 +15,15 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Forcer les bons chemins de vues
-        $this->app->make(Factory::class)->addLocation(resource_path('views'));
+        $view = $this->app->make(Factory::class);
+        
+        // Vider tous les chemins existants
+        $paths = $view->getFinder()->getPaths();
+        foreach ($paths as $path) {
+            $view->getFinder()->removeLocation($path);
+        }
+        
+        // Ajouter le bon chemin
+        $view->addLocation(resource_path('views'));
     }
 }
