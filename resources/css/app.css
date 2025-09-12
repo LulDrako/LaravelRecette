@@ -740,19 +740,103 @@
 }
 
 .welcome-page .btn-primary {
-    @apply bg-orange-500 text-white px-6 py-3 border-none rounded-md no-underline font-semibold text-base transition-all duration-300 shadow-lg uppercase tracking-wide;
+    @apply text-white px-8 py-4 border-none rounded-xl no-underline font-bold text-base transition-all duration-300 uppercase tracking-wide;
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+    box-shadow: 
+        0 8px 25px rgba(249, 115, 22, 0.3),
+        0 4px 10px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    min-height: 48px !important;
+}
+
+.welcome-page .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
 }
 
 .welcome-page .btn-primary:hover {
-    @apply bg-orange-600 text-white transform -translate-y-0.5 shadow-xl;
+    background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%) !important;
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 
+        0 15px 35px rgba(249, 115, 22, 0.4),
+        0 8px 15px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15) !important;
+}
+
+.welcome-page .btn-primary:hover::before {
+    left: 100%;
+}
+
+.welcome-page .btn-primary:active {
+    transform: translateY(-1px) scale(0.98) !important;
+    box-shadow: 
+        0 5px 15px rgba(249, 115, 22, 0.3),
+        0 2px 5px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
 }
 
 .welcome-page .btn-secondary {
-    @apply bg-transparent text-white border-2 border-white px-6 py-3 rounded-md no-underline font-semibold text-lg transition-all duration-300 uppercase tracking-wide;
+    @apply text-white border-2 border-white px-8 py-4 rounded-xl no-underline font-bold text-base transition-all duration-300 uppercase tracking-wide;
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.1),
+        0 4px 10px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    min-height: 48px !important;
+}
+
+.welcome-page .btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
 }
 
 .welcome-page .btn-secondary:hover {
-    @apply bg-white text-gray-800 transform -translate-y-0.5 shadow-lg;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #1f2937 !important;
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.2),
+        0 8px 15px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.welcome-page .btn-secondary:hover::before {
+    left: 100%;
+}
+
+.welcome-page .btn-secondary:active {
+    transform: translateY(-1px) scale(0.98) !important;
+    box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.15),
+        0 2px 5px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
 }
 
 .welcome-page .hero {
@@ -793,11 +877,45 @@
 }
 
 .welcome-page .feature-card {
-    @apply bg-white p-6 rounded-lg shadow-lg text-center transition-transform duration-300;
+    @apply bg-white p-6 rounded-lg text-center transition-all duration-300;
+    background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%) !important;
+    border: 1px solid rgba(249, 115, 22, 0.1) !important;
+    box-shadow: 
+        0 8px 25px rgba(249, 115, 22, 0.08),
+        0 4px 10px rgba(0, 0, 0, 0.06),
+        0 2px 4px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        inset 0 -1px 0 rgba(249, 115, 22, 0.1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.welcome-page .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f97316, #fb923c, #f97316) !important;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .welcome-page .feature-card:hover {
-    @apply transform -translate-y-1;
+    @apply transform -translate-y-2;
+    background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%) !important;
+    border-color: rgba(249, 115, 22, 0.15) !important;
+    box-shadow: 
+        0 20px 40px rgba(249, 115, 22, 0.08),
+        0 8px 16px rgba(0, 0, 0, 0.08),
+        0 2px 4px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 0 rgba(249, 115, 22, 0.1) !important;
+}
+
+.welcome-page .feature-card:hover::before {
+    opacity: 1 !important;
 }
 
 .welcome-page .feature-icon {
@@ -825,11 +943,19 @@
 }
 
 .welcome-page .cta-section .btn-primary {
-    @apply bg-white text-orange-500 font-bold;
+    @apply bg-white font-bold;
+    background-color: white !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.15),
+        0 4px 10px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
 }
 
 .welcome-page .cta-section .btn-primary:hover {
-    @apply bg-gray-50 text-orange-600 transform -translate-y-0.5;
+    @apply bg-gray-50 transform -translate-y-0.5;
+    color: #ffffff !important;
 }
 
 .welcome-page .footer {
