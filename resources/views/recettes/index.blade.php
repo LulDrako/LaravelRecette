@@ -202,7 +202,7 @@
                                                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                                                         <circle cx="12" cy="12" r="3"/>
                                                     </svg>
-                                                    Mod. {{ $recette->updated_at->format('d/m/Y') }}
+                                                    Modifiée le {{ $recette->updated_at->format('d/m/Y') }}
                                                 </div>
                                             @endif
                                         </div>
