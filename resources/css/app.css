@@ -962,6 +962,19 @@
     @apply bg-slate-800 text-white text-center py-6 text-sm;
 }
 
+/* ========================================
+   CORRECTIONS SPÉCIFIQUES POUR IPHONE/SAFARI
+======================================== */
+
+/* Règles spécifiques pour iPhone/Safari */
+@supports (-webkit-touch-callout: none) {
+    .welcome-page .hero {
+        background-size: 120% auto !important;
+        background-position: center 25% !important;
+        background-attachment: scroll !important;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .welcome-page .hero h1 {
