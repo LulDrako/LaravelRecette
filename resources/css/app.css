@@ -969,9 +969,10 @@
 /* Règles spécifiques pour iPhone/Safari */
 @supports (-webkit-touch-callout: none) {
     .welcome-page .hero {
-        background-size: 120% auto !important;
-        background-position: center 25% !important;
+        background-size: cover !important;
+        background-position: center center !important;
         background-attachment: scroll !important;
+        background-repeat: no-repeat !important;
     }
 }
 
