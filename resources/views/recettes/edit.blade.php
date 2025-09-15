@@ -163,7 +163,7 @@
                         @if($recette->image)
                             <div class="current-image">
                                 <p class="current-image-label">Image actuelle :</p>
-                                <img src="{{ Storage::url($recette->image) }}" 
+                                <img src="{{ $recette->image_url }}" 
                                      alt="{{ $recette->titre }}" 
                                      class="current-image-preview">
                             </div>

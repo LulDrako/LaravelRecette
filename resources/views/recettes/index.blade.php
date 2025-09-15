@@ -115,7 +115,7 @@
                         <div class="index-card">
                             <div class="index-card-image">
                                 @if($recette->image)
-                                    <img src="{{ Storage::url($recette->image) }}" alt="{{ $recette->titre }}">
+                                    <img src="{{ $recette->image_url }}" alt="{{ $recette->titre }}">
                                 @else
                                     <div class="index-card-placeholder">
                                         <svg width="48" height="48" fill="#9ca3af" viewBox="0 0 24 24">

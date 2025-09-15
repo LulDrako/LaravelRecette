@@ -17,7 +17,7 @@
         <div class="show-content-wrapper">
             <div class="show-hero-card">
                 @if($recette->image)
-                    <div class="show-hero-image" style="background-image: url('{{ Storage::url($recette->image) }}');">
+                    <div class="show-hero-image" style="background-image: url('{{ $recette->image_url }}');">
                         <div class="show-hero-overlay">
                             <h1 class="show-hero-title">{{ $recette->titre }}</h1>
                             @if($recette->description)
