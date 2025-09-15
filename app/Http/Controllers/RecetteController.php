@@ -254,12 +254,8 @@ class RecetteController extends Controller
             abort(403, 'Vous ne pouvez pas supprimer cette recette.');
         }
         
-        // Supprimer l'image si elle existe
-        if ($recette->image) {
-            Storage::disk('public')->delete($recette->image);
-        }
-        
         // Supprimer la recette de la base de données
+        // Plus besoin de supprimer l'image car elle est stockée en Base64 dans la DB
         $recette->delete();
         
         // Rediriger vers la liste avec message

@@ -43,5 +43,8 @@
                 <p>&copy; 2025 LaravelCook. Créé par <a href="https://github.com/LulDrako" target="_blank" style="color: #ff6b35; text-decoration: none;">LulDrako</a> - Une application pour partager la passion de la cuisine.</p>
             </div>
         </footer>
+        
+        <!-- Belle notification de confirmation -->
+        @include('components.beautiful-confirmation')
     </body>
 </html>

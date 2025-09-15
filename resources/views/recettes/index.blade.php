@@ -239,17 +239,12 @@
                                     </a>
                                     
                                     @if($recette->user_id === auth()->id())
-                                        <form action="{{ route('recettes.destroy', $recette) }}" method="POST" 
-                                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?');" 
-                                              class="index-card-delete-form">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="index-card-delete">
-                                                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
-                                                </svg>
-                                            </button>
-                                        </form>
+                                        <button onclick="showBeautifulConfirmation('{{ route('recettes.destroy', $recette) }}', 'Êtes-vous sûr de vouloir supprimer la recette &quot;{{ $recette->titre }}&quot; ?')" 
+                                                class="index-card-delete">
+                                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                                            </svg>
+                                        </button>
                                     @endif
                                     </div>
                                 </div>

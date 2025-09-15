@@ -167,14 +167,10 @@
                                 <a href="{{ route('recettes.edit', $recette) }}" class="show-action-edit">
                                     Modifier
                                 </a>
-                                <form action="{{ route('recettes.destroy', $recette) }}" method="POST" 
-                                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="show-action-delete">
-                                        Supprimer
-                                    </button>
-                                </form>
+                                <button onclick="showBeautifulConfirmation('{{ route('recettes.destroy', $recette) }}', 'Êtes-vous sûr de vouloir supprimer la recette &quot;{{ $recette->titre }}&quot; ?')" 
+                                        class="show-action-delete">
+                                    Supprimer
+                                </button>
                             </div>
                         </div>
                     @endif
