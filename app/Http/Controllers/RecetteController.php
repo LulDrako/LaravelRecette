@@ -287,13 +287,12 @@ class RecetteController extends Controller
         }
 
         // Filtre par tags alimentaires (recherche dans la colonne JSON tags)
+        // Logique AND : la recette doit avoir TOUS les tags sélectionnés
         if ($request->filled('tags')) {
             $tags = $request->tags;
-            $query->where(function($q) use ($tags) {
-                foreach ($tags as $tag) {
-                    $q->orWhereRaw("tags::jsonb @> ?::jsonb", [json_encode([$tag])]);
-                }
-            });
+            foreach ($tags as $tag) {
+                $query->whereRaw("tags::jsonb @> ?::jsonb", [json_encode([$tag])]);
+            }
         }
 
         // Filtre par tags personnalisés (recherche intelligente dans la colonne JSON tags)
