@@ -38,4 +38,13 @@ class Recette extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Accessor pour l'URL de l'image
+     * Retourne directement l'image (base64 ou URL)
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->image;
+    }
 }

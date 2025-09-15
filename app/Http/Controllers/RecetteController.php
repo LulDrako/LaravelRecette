@@ -118,9 +118,11 @@ class RecetteController extends Controller
         
         // Laisser les instructions telles que saisies (numérotation gérée côté client)
 
-        // Gérer l'upload d'image si présente
+        // Gérer l'upload d'image si présente - convertir en base64
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('recettes', 'public');
+            $image = $request->file('image');
+            $imageData = base64_encode(file_get_contents($image->getRealPath()));
+            $validated['image'] = 'data:image/jpeg;base64,' . $imageData;
         }
         
         // Créer la recette en base de données
@@ -227,11 +229,10 @@ class RecetteController extends Controller
         
         // Gérer nouvelle image si uploadée
         if ($request->hasFile('image')) {
-            // Supprimer ancienne image si elle existe
-            if ($recette->image) {
-                Storage::disk('public')->delete($recette->image);
-            }
-            $validated['image'] = $request->file('image')->store('recettes', 'public');
+            // Convertir l'image en base64 et la stocker
+            $image = $request->file('image');
+            $imageData = base64_encode(file_get_contents($image->getRealPath()));
+            $validated['image'] = 'data:image/jpeg;base64,' . $imageData;
         }
         
         // Mettre à jour la recette
