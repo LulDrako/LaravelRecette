@@ -6,6 +6,9 @@
 [![php](https://img.shields.io/badge/php-41.2%25-blue)](https://github.com/LulDrako/LaravelRecette)
 [![languages](https://img.shields.io/badge/languages-6-grey)](https://github.com/LulDrako/LaravelRecette)
 
+Premier projet Laravel réalisé dans le cadre de mon apprentissage personnel du framework.  
+Ce projet me permet de découvrir les bases de Laravel à travers un cas concret : la gestion de recettes culinaires.
+
 ![Laravel](https://img.shields.io/badge/Laravel-11-red?style=flat-square&logo=laravel)
 ![PHP](https://img.shields.io/badge/PHP-8+-purple?style=flat-square&logo=php)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-12+-blue?style=flat-square&logo=postgresql)
@@ -13,10 +16,6 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 ![Composer](https://img.shields.io/badge/Composer-885630?style=flat-square&logo=composer&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
-
-
-Premier projet Laravel réalisé dans le cadre de mon apprentissage personnel du framework.  
-Ce projet me permet de découvrir les bases de Laravel à travers un cas concret : la gestion de recettes culinaires.
 </div>
 
 ## ✨ Fonctionnalités
