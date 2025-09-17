@@ -57,11 +57,21 @@ php artisan key:generate
 # 6. Exécuter les migrations
 php artisan migrate
 
-# 7. Lancer le serveur
+# 7. Installer les dépendances Node.js et compiler les assets
+npm install
+npm run build
+
+# 8. Lancer le serveur
 php artisan serve
 ```
 
 🎉 **C'est tout !** L'application est accessible sur `http://localhost:8000`
+
+### Pour le développement
+```bash
+# Lancer Vite en parallèle (dans un autre terminal)
+npm run dev
+```
 
 
 ## 🧪 En cours d'apprentissage
