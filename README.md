@@ -10,10 +10,10 @@
 ![Laravel](https://img.shields.io/badge/Laravel-11-red?style=flat-square&logo=laravel)
 ![PHP](https://img.shields.io/badge/PHP-8+-purple?style=flat-square&logo=php)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-12+-blue?style=flat-square&logo=postgresql)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript)
-![Composer](https://img.shields.io/badge/Composer-885630?style=flat-square&logo=composer)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![Composer](https://img.shields.io/badge/Composer-885630?style=flat-square&logo=composer&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
 </div>
 
 🎯 Premier projet Laravel réalisé dans le cadre de mon apprentissage personnel du framework.  
