@@ -1,7 +1,6 @@
 <div align="center">
 
-# LARAVELRECETTE
-
+# LaravelCook
 
 [![last commit](https://img.shields.io/badge/last%20commit-today-blue)](https://github.com/LulDrako/LaravelRecette)
 [![php](https://img.shields.io/badge/php-41.2%25-blue)](https://github.com/LulDrako/LaravelRecette)
@@ -14,10 +13,11 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 ![Composer](https://img.shields.io/badge/Composer-885630?style=flat-square&logo=composer&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
-</div>
 
-🎯 Premier projet Laravel réalisé dans le cadre de mon apprentissage personnel du framework.  
+
+Premier projet Laravel réalisé dans le cadre de mon apprentissage personnel du framework.  
 Ce projet me permet de découvrir les bases de Laravel à travers un cas concret : la gestion de recettes culinaires.
+</div>
 
 ## ✨ Fonctionnalités
 
