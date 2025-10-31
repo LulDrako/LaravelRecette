@@ -2,9 +2,9 @@
 
 # LaravelCook
 
-[![last commit](https://img.shields.io/badge/last%20commit-today-blue)](https://github.com/LulDrako/LaravelRecette)
-[![php](https://img.shields.io/badge/php-41.2%25-blue)](https://github.com/LulDrako/LaravelRecette)
-[![languages](https://img.shields.io/badge/languages-6-grey)](https://github.com/LulDrako/LaravelRecette)
+[![last commit](https://img.shields.io/github/last-commit/LulDrako/LaravelRecette?color=blue)](https://github.com/LulDrako/LaravelRecette)
+[![top language](https://img.shields.io/github/languages/top/LulDrako/LaravelRecette?color=blue)](https://github.com/LulDrako/LaravelRecette)
+[![languages count](https://img.shields.io/github/languages/count/LulDrako/LaravelRecette?color=grey)](https://github.com/LulDrako/LaravelRecette)
 
 Premier projet Laravel réalisé dans le cadre de mon apprentissage personnel du framework.  
 Ce projet me permet de découvrir les bases de Laravel à travers un cas concret : la gestion de recettes culinaires.
