@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/laravel/compare/v1.0.2...main)
+## [Unreleased](https://github.com/laravel/laravel/compare/v1.0.3...main)
+
+## [v1.0.3](https://github.com/laravel/laravel/compare/v1.0.2...v1.0.3) - 2025-11-01
+
+🔧 Fix Heroku deployment workflow (use git push instead of CLI)
 
 ## [v1.0.2](https://github.com/laravel/laravel/compare/v1.0...v1.0.2) - 2025-11-01
 
