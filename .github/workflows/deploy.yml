@@ -73,7 +73,7 @@ jobs:
           token: ${{ github.token }}
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: success
-          environment-url: https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com
+          environment-url: https://laravel-recette-066786f3f74d.herokuapp.com
 
       - name: Update deployment status (failure)
         if: failure()
