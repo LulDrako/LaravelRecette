@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/laravel/compare/v1.0.5...main)
+## [Unreleased](https://github.com/laravel/laravel/compare/v1.0.6...main)
+
+## [v1.0.6](https://github.com/laravel/laravel/compare/v1.0.5...v1.0.6) - 2025-11-01
+
+✅ Deployment workflow fully working
+🚀 Deploys on every release
 
 ## [v1.0.5](https://github.com/laravel/laravel/compare/v1.0.4...v1.0.5) - 2025-11-01
 
