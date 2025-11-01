@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/laravel/compare/v1.0.6...main)
+## [Unreleased](https://github.com/laravel/laravel/compare/v1.0.7...main)
+
+## [v1.0.7](https://github.com/laravel/laravel/compare/v1.0.6...v1.0.7) - 2025-11-01
+
+🔧 Fix GitHub Deployments synchronization
+✅ Added deployments:write permission
 
 ## [v1.0.6](https://github.com/laravel/laravel/compare/v1.0.5...v1.0.6) - 2025-11-01
 
