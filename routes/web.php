@@ -14,14 +14,13 @@ Route::get('/home', function () {
 
 // Routes publiques pour voir les recettes
 Route::get('/recettes', [RecetteController::class, 'index'])->name('recettes.index');
-Route::get('/recettes/{recette}', [RecetteController::class, 'show'])->name('recettes.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    // Routes protégées pour gérer les recettes
+    // Routes protégées pour gérer les recettes (create AVANT show pour éviter les conflits)
     Route::get('/recettes/create', [RecetteController::class, 'create'])->name('recettes.create');
     Route::post('/recettes', [RecetteController::class, 'store'])->name('recettes.store');
     Route::get('/recettes/{recette}/edit', [RecetteController::class, 'edit'])->name('recettes.edit');
@@ -31,5 +30,8 @@ Route::middleware('auth')->group(function () {
     // Route pour les recettes de l'utilisateur connecté
     Route::get('/mes-recettes', [RecetteController::class, 'mesRecettes'])->name('mes-recettes.index');
 });
+
+// Route publique pour voir une recette (doit être après /recettes/create)
+Route::get('/recettes/{recette}', [RecetteController::class, 'show'])->name('recettes.show');
 
 require __DIR__.'/auth.php';
