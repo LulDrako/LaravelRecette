@@ -1,6 +1,21 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/laravel/compare/v1.0...main)
+## [Unreleased](https://github.com/laravel/laravel/compare/v1.0.2...main)
+
+## [v1.0.2](https://github.com/laravel/laravel/compare/v1.0...v1.0.2) - 2025-11-01
+
+### 🔒 Security & Deployment
+
+- Deployment now requires release tags (no auto-deploy on commits)
+- Only [@LulDrako](https://github.com/LulDrako) can trigger deployments
+
+### Fixes
+
+- Fix PostgreSQL setup and authentication routes
+- Fix GitHub Actions workflow (add Vite build)
+- Add missing storage directories
+
+### ✅ All tests passing (49/49)
 
 ## [v1.0](https://github.com/laravel/laravel/compare/v12.3.1...v1.0) - 2025-09-15
 
