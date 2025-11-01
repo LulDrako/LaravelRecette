@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/laravel/compare/v1.0.8...main)
+## [Unreleased](https://github.com/laravel/laravel/compare/v1.0.9...main)
+
+## [v1.0.9](https://github.com/laravel/laravel/compare/v1.0.8...v1.0.9) - 2025-11-01
+
+🔧 Fix deployment URL (correct Heroku link)
 
 ## [v1.0.8](https://github.com/laravel/laravel/compare/v1.0.7...v1.0.8) - 2025-11-01
 
