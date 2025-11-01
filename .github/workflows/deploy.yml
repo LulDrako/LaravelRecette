@@ -35,13 +35,6 @@ jobs:
       - name: Build Vite assets
         run: npm run build
 
-      - name: Create GitHub Deployment
-        uses: chrnorm/deployment-action@v2
-        id: deployment
-        with:
-          token: ${{ github.token }}
-          environment: production
-
       - name: Deploy to Heroku via Git
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
@@ -62,21 +55,4 @@ jobs:
           git push heroku HEAD:main --force
           
           echo "✅ Deployment successful!"
-
-      - name: Update deployment status (success)
-        if: success()
-        uses: chrnorm/deployment-status@v2
-        with:
-          token: ${{ github.token }}
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          state: success
-          environment-url: https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com
-
-      - name: Update deployment status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@v2
-        with:
-          token: ${{ github.token }}
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          state: failure
 
