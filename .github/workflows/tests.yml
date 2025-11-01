@@ -35,6 +35,12 @@ jobs:
           ini-values: memory_limit=512M
           coverage: none
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
       - name: Cache Composer
         uses: actions/cache@v4
         with:
@@ -46,6 +52,12 @@ jobs:
         env:
           COMPOSER_NO_INTERACTION: 1
         run: composer install --prefer-dist --no-progress --no-ansi --no-scripts
+
+      - name: Install NPM dependencies
+        run: npm ci
+
+      - name: Build Vite assets
+        run: npm run build
 
       - name: Copy environment file
         run: cp .env.example .env
