@@ -27,7 +27,7 @@ Ce projet me permet de découvrir les bases de Laravel à travers un cas concret
 - Affichage des recettes de tous les utilisateurs
 
 
-## 🚀 Installation rapide
+## Installation rapide
 
 ### Prérequis
 - PHP 8+ 
