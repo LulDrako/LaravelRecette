@@ -87,4 +87,4 @@ Ce projet est encore en construction, il me sert à :
 ## 🙋‍♂️ Auteur
 
 Ce projet est développé par [LulDrako](https://github.com/LulDrako) dans le cadre de mon auto-formation Laravel.  
-Il est public pour montrer mon avancée et recevoir des retours !
+Il est public pour montrer mon avancée et recevoir des retours ! N'hésite pas à ouvrir une issue 🚀
